@@ -1,5 +1,6 @@
 #include "cinemahall.h"
 #include "ui_cinemahall.h"
+#include <QThread>
 
 CinemaHall::CinemaHall(QDialog *parent, uint row, uint col) :
     QDialog(parent),

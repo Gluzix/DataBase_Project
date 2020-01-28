@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QThread>
 
 namespace Ui {
 class MainWindow;
@@ -19,7 +20,8 @@ public slots:
     void BookSeats();
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow  *ui;
+
 
     void setMovies();
     void AddNewWidget(QString info, QString path);

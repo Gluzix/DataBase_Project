@@ -12,7 +12,7 @@ class Movie : public QWidget
     Q_OBJECT
 
 public:
-    explicit Movie(QWidget *parent = nullptr, QString desc=QString(), QString pathToImage=QString() );
+    explicit Movie(QWidget *parent = nullptr, QString desc=QString(), QString pathToImage=QString(), QVector<QString> dates={QString()}, QVector<QString> hours={QString()});
     ~Movie();
 
 signals:
