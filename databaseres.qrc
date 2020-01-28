@@ -2,15 +2,17 @@
     <qresource prefix="/">
         <file>Resources/seatAvailable.png</file>
         <file>Resources/seatUnAvailable.png</file>
-        <file>Resources/movie_1.jfif</file>
-        <file>Resources/movie_2.jfif</file>
-        <file>Resources/movie_3.jfif</file>
-        <file>Resources/movie_4.jfif</file>
         <file>Resources/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf</file>
         <file>Resources/fonts/Roboto_Condensed/RobotoCondensed-BoldItalic.ttf</file>
         <file>Resources/fonts/Roboto_Condensed/RobotoCondensed-Italic.ttf</file>
         <file>Resources/fonts/Roboto_Condensed/RobotoCondensed-Light.ttf</file>
         <file>Resources/fonts/Roboto_Condensed/RobotoCondensed-LightItalic.ttf</file>
         <file>Resources/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf</file>
+        <file>Resources/fonts/Bangers/Bangers-Regular.ttf</file>
+        <file>Resources/arrow.png</file>
+        <file>Resources/1.jpg</file>
+        <file>Resources/2.jpg</file>
+        <file>Resources/3.jpg</file>
+        <file>Resources/4.jpg</file>
     </qresource>
 </RCC>

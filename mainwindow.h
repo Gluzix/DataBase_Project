@@ -15,10 +15,14 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+    void BookSeats();
+
 private:
     Ui::MainWindow *ui;
 
     void setMovies();
+    void AddNewWidget(QString info, QString path);
 };
 
 #endif // MAINWINDOW_H
