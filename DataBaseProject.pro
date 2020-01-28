@@ -25,16 +25,22 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        cinemahall.cpp \
         main.cpp \
         mainwindow.cpp \
+        movie.cpp \
         seat.cpp
 
 HEADERS += \
+        cinemahall.h \
         mainwindow.h \
+        movie.h \
         seat.h
 
 FORMS += \
+        cinemahall.ui \
         mainwindow.ui \
+        movie.ui \
         seat.ui
 
 # Default rules for deployment.
@@ -44,3 +50,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     databaseres.qrc
+
+DISTFILES += \
+    Resources/fonts/Roboto_Condensed/LICENSE.txt

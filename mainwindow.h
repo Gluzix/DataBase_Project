@@ -2,8 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QVector>
-#include "seat.h"
 
 namespace Ui {
 class MainWindow;
@@ -19,7 +17,8 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    QVector<seat*> m_SeatsContainer;
+
+    void setMovies();
 };
 
 #endif // MAINWINDOW_H
