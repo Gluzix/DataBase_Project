@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Resources/seatAvailable.png</file>
+        <file>Resources/seatUnAvailable.png</file>
+    </qresource>
+</RCC>
