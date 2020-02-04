@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "movie.h"
 #include "cinemahall.h"
+#include "registerwindow.h"
 #include <QFontDatabase>
 
 
@@ -14,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QFontDatabase::addApplicationFont(":/Resources/fonts/Bangers/Bangers-Regular.ttf");
     QFont Bangers("Bangers");
     QApplication::setFont(Bangers);
+    connect(ui->registerButton, SIGNAL(clicked()), this, SLOT(OnRegisterButtonClick()));
 }
 
 MainWindow::~MainWindow()
@@ -24,6 +26,11 @@ MainWindow::~MainWindow()
 void MainWindow::BookSeats()
 {
     CinemaHall::execCinemaHall(5,10);
+}
+
+void MainWindow::OnRegisterButtonClick()
+{
+    RegisterWindow::ExecRegisterWindow();
 }
 
 void MainWindow::setMovies()

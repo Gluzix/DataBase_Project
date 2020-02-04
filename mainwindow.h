@@ -19,9 +19,11 @@ public:
 public slots:
     void BookSeats();
 
+private slots:
+    void OnRegisterButtonClick();
+
 private:
     Ui::MainWindow  *ui;
-
 
     void setMovies();
     void AddNewWidget(QString info, QString path);

@@ -61,7 +61,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>390</width>
+           <width>378</width>
            <height>264</height>
           </rect>
          </property>
@@ -228,7 +228,7 @@ background-color:rgb(100,100,100);
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">font-size:11px;</string>
+         <string notr="true">font-size:13px;</string>
         </property>
         <property name="text">
          <string>Po 25 latach odsiadki Franz Maurer wychodzi z więzienia i wkracza w nową Polskę, w której nic nie jest takie, jak zapamiętał. Kto i co czeka na człowieka, który przez ostatnie ćwierć wieku… nie robił nic? Jak odnajdzie się w świecie, w którym dawne zasady i lojalność przestały obowiązywać? Tego dowiemy się, gdy los ponownie połączy Franza i „Nowego”. Ich spotkanie zmieni wszystko.</string>

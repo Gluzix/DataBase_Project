@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -29,18 +30,21 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
         movie.cpp \
+        registerwindow.cpp \
         seat.cpp
 
 HEADERS += \
         cinemahall.h \
         mainwindow.h \
         movie.h \
+        registerwindow.h \
         seat.h
 
 FORMS += \
         cinemahall.ui \
         mainwindow.ui \
         movie.ui \
+        registerwindow.ui \
         seat.ui
 
 # Default rules for deployment.
