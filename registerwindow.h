@@ -20,9 +20,13 @@ public:
 private slots:
     void ProcessRegister();
     void CloseWindow();
+    void OnLineEditsTextChanged(const QString &);
+    void OnPwdBoxStateChanged(int);
 
 private:
     Ui::RegisterWindow *ui;
+
+    void ValidateEmail( bool &ifNothingIsEmpty );
 };
 
 #endif // REGISTERWINDOW_H

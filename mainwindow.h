@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QThread>
+#include "loginwidget.h"
+#include "userwidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -18,12 +20,15 @@ public:
 
 public slots:
     void BookSeats();
-
-private slots:
-    void OnRegisterButtonClick();
+    void ChangeToUserWidget(QString);
+    void ChangeToLoginWidget();
 
 private:
     Ui::MainWindow  *ui;
+    LoginWidget     *loginWidget;
+    UserWidget      *userWidget;
+
+    bool bIfLogged;
 
     void setMovies();
     void AddNewWidget(QString info, QString path);

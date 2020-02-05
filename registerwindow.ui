@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>278</width>
+    <width>430</width>
     <height>269</height>
    </rect>
   </property>
@@ -19,26 +19,6 @@ background-color:rgb(90,90,90);
 }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="4" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>Repeat Password</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="1">
-    <widget class="QLineEdit" name="emailEdit">
-     <property name="styleSheet">
-      <string notr="true">QLineEdit{
-font-size:14px;
-border-radius:6px;
-background-color:rgb(110,110,110);
-padding-top:6px;
-padding-bottom:6px;
-}</string>
-     </property>
-    </widget>
-   </item>
    <item row="5" column="0">
     <widget class="QLabel" name="label_4">
      <property name="text">
@@ -57,6 +37,9 @@ padding-top:6px;
 padding-bottom:6px;
 }</string>
      </property>
+     <property name="maxLength">
+      <number>30</number>
+     </property>
     </widget>
    </item>
    <item row="3" column="1">
@@ -69,6 +52,12 @@ background-color:rgb(110,110,110);
 padding-top:6px;
 padding-bottom:6px;
 }</string>
+     </property>
+     <property name="maxLength">
+      <number>35</number>
+     </property>
+     <property name="echoMode">
+      <enum>QLineEdit::Password</enum>
      </property>
     </widget>
    </item>
@@ -86,23 +75,19 @@ padding-bottom:6px;
      </property>
     </widget>
    </item>
-   <item row="8" column="0">
-    <widget class="QPushButton" name="cancelButton">
+   <item row="5" column="1">
+    <widget class="QLineEdit" name="emailEdit">
      <property name="styleSheet">
-      <string notr="true">QPushButton{
+      <string notr="true">QLineEdit{
 font-size:14px;
 border-radius:6px;
 background-color:rgb(110,110,110);
 padding-top:6px;
 padding-bottom:6px;
-}
-
-QPushButton:hover{
-background-color:rgb(130,130,130);
 }</string>
      </property>
-     <property name="text">
-      <string>Cancel</string>
+     <property name="maxLength">
+      <number>30</number>
      </property>
     </widget>
    </item>
@@ -132,30 +117,30 @@ background-color:rgb(130,130,130);
      </property>
     </widget>
    </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="label_2">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_6">
      <property name="text">
-      <string>Password</string>
+      <string>First Name</string>
      </property>
     </widget>
    </item>
-   <item row="4" column="1">
-    <widget class="QLineEdit" name="pwdRepeatEdit">
+   <item row="8" column="0">
+    <widget class="QPushButton" name="cancelButton">
      <property name="styleSheet">
-      <string notr="true">QLineEdit{
+      <string notr="true">QPushButton{
 font-size:14px;
 border-radius:6px;
 background-color:rgb(110,110,110);
 padding-top:6px;
 padding-bottom:6px;
+}
+
+QPushButton:hover{
+background-color:rgb(130,130,130);
 }</string>
      </property>
-    </widget>
-   </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label_6">
      <property name="text">
-      <string>First Name</string>
+      <string>Cancel</string>
      </property>
     </widget>
    </item>
@@ -170,6 +155,45 @@ padding-top:6px;
 padding-bottom:6px;
 }</string>
      </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="maxLength">
+      <number>30</number>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Password</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>Repeat Password</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QLineEdit" name="pwdRepeatEdit">
+     <property name="styleSheet">
+      <string notr="true">QLineEdit{
+font-size:14px;
+border-radius:6px;
+background-color:rgb(110,110,110);
+padding-top:6px;
+padding-bottom:6px;
+}</string>
+     </property>
+     <property name="maxLength">
+      <number>35</number>
+     </property>
+     <property name="echoMode">
+      <enum>QLineEdit::Password</enum>
+     </property>
     </widget>
    </item>
    <item row="1" column="1">
@@ -182,6 +206,19 @@ background-color:rgb(110,110,110);
 padding-top:6px;
 padding-bottom:6px;
 }</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="maxLength">
+      <number>30</number>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <widget class="QCheckBox" name="pwdBox">
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </item>

@@ -27,27 +27,34 @@ CONFIG += c++11
 SOURCES += \
         cinemahall.cpp \
         informdialog.cpp \
+        loginwidget.cpp \
         main.cpp \
         mainwindow.cpp \
         movie.cpp \
         registerwindow.cpp \
-        seat.cpp
+        seat.cpp \
+        userwidget.cpp
 
 HEADERS += \
         cinemahall.h \
+        database.h \
         informdialog.h \
+        loginwidget.h \
         mainwindow.h \
         movie.h \
         registerwindow.h \
-        seat.h
+        seat.h \
+        userwidget.h
 
 FORMS += \
         cinemahall.ui \
         informdialog.ui \
+        loginwidget.ui \
         mainwindow.ui \
         movie.ui \
         registerwindow.ui \
-        seat.ui
+        seat.ui \
+        userwidget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

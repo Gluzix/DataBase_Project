@@ -2,9 +2,8 @@
 #include "ui_mainwindow.h"
 #include "movie.h"
 #include "cinemahall.h"
-#include "registerwindow.h"
+#include "database.h"
 #include <QFontDatabase>
-
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -15,7 +14,16 @@ MainWindow::MainWindow(QWidget *parent) :
     //QFontDatabase::addApplicationFont(":/Resources/fonts/Bangers/Bangers-Regular.ttf");
     //QFont Bangers("Bangers");
     //QApplication::setFont(Bangers);
-    connect(ui->registerButton, SIGNAL(clicked()), this, SLOT(OnRegisterButtonClick()));
+
+    bIfLogged = false;
+    loginWidget = new LoginWidget( this );
+    userWidget = new UserWidget( this );
+    userWidget->hide();
+
+    connect(loginWidget, SIGNAL(SendWidgetChangeSignal(QString)), this, SLOT(ChangeToUserWidget(QString)) );
+    connect(userWidget, SIGNAL(SendWidgetChangeSignal()), this, SLOT(ChangeToLoginWidget()) );
+
+    ui->userWidgetLayout->addWidget(loginWidget);
 }
 
 MainWindow::~MainWindow()
@@ -28,9 +36,21 @@ void MainWindow::BookSeats()
     CinemaHall::execCinemaHall(5,10);
 }
 
-void MainWindow::OnRegisterButtonClick()
+void MainWindow::ChangeToUserWidget( QString name )
 {
-    RegisterWindow::ExecRegisterWindow();
+    ui->userWidgetLayout->removeWidget(loginWidget);
+    loginWidget->hide();
+    ui->userWidgetLayout->addWidget(userWidget);
+    userWidget->SetName(name);
+    userWidget->show();
+}
+
+void MainWindow::ChangeToLoginWidget()
+{
+    ui->userWidgetLayout->removeWidget(userWidget);
+    userWidget->hide();
+    ui->userWidgetLayout->addWidget(loginWidget);
+    loginWidget->show();
 }
 
 void MainWindow::setMovies()
