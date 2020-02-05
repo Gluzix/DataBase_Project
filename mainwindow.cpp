@@ -12,9 +12,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     setMovies();
-    QFontDatabase::addApplicationFont(":/Resources/fonts/Bangers/Bangers-Regular.ttf");
-    QFont Bangers("Bangers");
-    QApplication::setFont(Bangers);
+    //QFontDatabase::addApplicationFont(":/Resources/fonts/Bangers/Bangers-Regular.ttf");
+    //QFont Bangers("Bangers");
+    //QApplication::setFont(Bangers);
     connect(ui->registerButton, SIGNAL(clicked()), this, SLOT(OnRegisterButtonClick()));
 }
 

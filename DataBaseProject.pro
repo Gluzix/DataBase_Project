@@ -26,6 +26,7 @@ CONFIG += c++11
 
 SOURCES += \
         cinemahall.cpp \
+        informdialog.cpp \
         main.cpp \
         mainwindow.cpp \
         movie.cpp \
@@ -34,6 +35,7 @@ SOURCES += \
 
 HEADERS += \
         cinemahall.h \
+        informdialog.h \
         mainwindow.h \
         movie.h \
         registerwindow.h \
@@ -41,6 +43,7 @@ HEADERS += \
 
 FORMS += \
         cinemahall.ui \
+        informdialog.ui \
         mainwindow.ui \
         movie.ui \
         registerwindow.ui \
