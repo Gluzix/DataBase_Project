@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>InformDialog</class>
+ <widget class="QWidget" name="InformDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>207</width>
+    <height>216</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="headerLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-size:20px;</string>
+     </property>
+     <property name="text">
+      <string>fsf</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="contentLabel">
+     <property name="text">
+      <string>fsf</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QPushButton" name="confirmButton">
+     <property name="text">
+      <string>Ok</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

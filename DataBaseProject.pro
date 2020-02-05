@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,17 +25,36 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        cinemahall.cpp \
+        informdialog.cpp \
+        loginwidget.cpp \
         main.cpp \
         mainwindow.cpp \
-        seat.cpp
+        movie.cpp \
+        registerwindow.cpp \
+        seat.cpp \
+        userwidget.cpp
 
 HEADERS += \
+        cinemahall.h \
+        database.h \
+        informdialog.h \
+        loginwidget.h \
         mainwindow.h \
-        seat.h
+        movie.h \
+        registerwindow.h \
+        seat.h \
+        userwidget.h
 
 FORMS += \
+        cinemahall.ui \
+        informdialog.ui \
+        loginwidget.ui \
         mainwindow.ui \
-        seat.ui
+        movie.ui \
+        registerwindow.ui \
+        seat.ui \
+        userwidget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -44,3 +63,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     databaseres.qrc
+
+DISTFILES += \
+    Resources/fonts/Roboto_Condensed/LICENSE.txt

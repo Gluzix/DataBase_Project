@@ -1,35 +1,70 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
-const int m_AmountOfSeats = 5;
+#include "movie.h"
+#include "cinemahall.h"
+#include "database.h"
+#include <QFontDatabase>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    for(int i=0; i<m_AmountOfSeats; i++)
-    {
-        m_SeatsContainer.push_back( new seat(this) );
-    }
+    setMovies();
+    //QFontDatabase::addApplicationFont(":/Resources/fonts/Bangers/Bangers-Regular.ttf");
+    //QFont Bangers("Bangers");
+    //QApplication::setFont(Bangers);
 
-    for(int i=0; i<m_AmountOfSeats; i++)
-    {
-        for(int j=0; j<m_AmountOfSeats; j++)
-        {
-            ui->gridLayout->addWidget( m_SeatsContainer[i],i,j, Qt::AlignmentFlag::AlignLeft );
-        }
-    }
+    bIfLogged = false;
+    loginWidget = new LoginWidget( this );
+    userWidget = new UserWidget( this );
+    userWidget->hide();
+
+    connect(loginWidget, SIGNAL(SendWidgetChangeSignal(QString)), this, SLOT(ChangeToUserWidget(QString)) );
+    connect(userWidget, SIGNAL(SendWidgetChangeSignal()), this, SLOT(ChangeToLoginWidget()) );
+
+    ui->userWidgetLayout->addWidget(loginWidget);
 }
 
 MainWindow::~MainWindow()
 {
-    QVector<seat>::iterator *iterator;
-    for( iterator = m_SeatsContainer.begin(); iterator
-         < m_SeatsContainer.end(); iterator++)
-    {
-        delete (*iterator);
-        (*iterator) = nullptr;
-    }
     delete ui;
+}
+
+void MainWindow::BookSeats()
+{
+    CinemaHall::execCinemaHall(5,10);
+}
+
+void MainWindow::ChangeToUserWidget( QString name )
+{
+    ui->userWidgetLayout->removeWidget(loginWidget);
+    loginWidget->hide();
+    ui->userWidgetLayout->addWidget(userWidget);
+    userWidget->SetName(name);
+    userWidget->show();
+}
+
+void MainWindow::ChangeToLoginWidget()
+{
+    ui->userWidgetLayout->removeWidget(userWidget);
+    userWidget->hide();
+    ui->userWidgetLayout->addWidget(loginWidget);
+    loginWidget->show();
+}
+
+void MainWindow::setMovies()
+{
+    ui->widget->setLayout(new QGridLayout(this));
+    AddNewWidget("image: url(:/Resources/1.jpg);", "Po 25 latach odsiadki Franz Maurer wychodzi z więzienia i wkracza w nową Polskę, w której nic nie jest takie, jak zapamiętał. Kto i co czeka na człowieka, który przez ostatnie ćwierć wieku… nie robił nic? Jak odnajdzie się w świecie, w którym dawne zasady i lojalność przestały obowiązywać? Tego dowiemy się, gdy los ponownie połączy Franza i „Nowego”. Ich spotkanie zmieni wszystko.");
+    AddNewWidget("image: url(:/Resources/2.jpg);","Wielkie wojenne widowisko na miarę „Dunkierki” i „Szeregowca Ryana”, które przybliża nam dramatyczne losy żołnierzy na froncie jednej z najbardziej tragicznych wojen w dziejach świata.");
+    AddNewWidget("image: url(:/Resources/3.jpg);","Robert Downey Jr. wciela się w jedną z najsłynniejszych postaci światowej literatury w pełnej przygód nowej filmowej wersji opowieści o człowieku, który potrafi rozmawiać ze zwierzętami. Oto doktor Dolittle.");
+    AddNewWidget("image: url(:/Resources/4.jpg);","Druga część niezwykle popularnej animowanej baśni Disneya. Elsa i Anna powracają do kin, a wraz z nimi przesympatyczny bałwanek Olaf.");
+}
+
+void MainWindow::AddNewWidget( QString path, QString info )
+{
+    Movie *movie = new Movie( this, info, path);
+    connect(movie, SIGNAL( SendButtonSignal() ), this, SLOT( BookSeats() ));
+    ui->widget->layout()->addWidget( movie );
 }
