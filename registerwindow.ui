@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>278</width>
-    <height>195</height>
+    <height>269</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,47 +19,14 @@ background-color:rgb(90,90,90);
 }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="1">
-    <widget class="QLineEdit" name="loginEdit">
-     <property name="styleSheet">
-      <string notr="true">QLineEdit{
-font-size:14px;
-border-radius:6px;
-background-color:rgb(110,110,110);
-padding-top:6px;
-padding-bottom:6px;
-}</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Password</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0">
+   <item row="4" column="0">
     <widget class="QLabel" name="label_3">
      <property name="text">
       <string>Repeat Password</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="1">
-    <widget class="QLineEdit" name="pwdEdit">
-     <property name="styleSheet">
-      <string notr="true">QLineEdit{
-font-size:14px;
-border-radius:6px;
-background-color:rgb(110,110,110);
-padding-top:6px;
-padding-bottom:6px;
-}</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="1">
+   <item row="5" column="1">
     <widget class="QLineEdit" name="emailEdit">
      <property name="styleSheet">
       <string notr="true">QLineEdit{
@@ -72,14 +39,7 @@ padding-bottom:6px;
      </property>
     </widget>
    </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Login</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0">
+   <item row="5" column="0">
     <widget class="QLabel" name="label_4">
      <property name="text">
       <string>E-Mail</string>
@@ -87,7 +47,7 @@ padding-bottom:6px;
     </widget>
    </item>
    <item row="2" column="1">
-    <widget class="QLineEdit" name="pwdRepeatEdit">
+    <widget class="QLineEdit" name="loginEdit">
      <property name="styleSheet">
       <string notr="true">QLineEdit{
 font-size:14px;
@@ -99,7 +59,54 @@ padding-bottom:6px;
      </property>
     </widget>
    </item>
-   <item row="6" column="1">
+   <item row="3" column="1">
+    <widget class="QLineEdit" name="pwdEdit">
+     <property name="styleSheet">
+      <string notr="true">QLineEdit{
+font-size:14px;
+border-radius:6px;
+background-color:rgb(110,110,110);
+padding-top:6px;
+padding-bottom:6px;
+}</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_5">
+     <property name="text">
+      <string>Second Name</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Login</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0">
+    <widget class="QPushButton" name="cancelButton">
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+font-size:14px;
+border-radius:6px;
+background-color:rgb(110,110,110);
+padding-top:6px;
+padding-bottom:6px;
+}
+
+QPushButton:hover{
+background-color:rgb(130,130,130);
+}</string>
+     </property>
+     <property name="text">
+      <string>Cancel</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="1">
     <widget class="QPushButton" name="registerButton">
      <property name="minimumSize">
       <size>
@@ -125,23 +132,56 @@ background-color:rgb(130,130,130);
      </property>
     </widget>
    </item>
-   <item row="6" column="0">
-    <widget class="QPushButton" name="cancelButton">
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Password</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QLineEdit" name="pwdRepeatEdit">
      <property name="styleSheet">
-      <string notr="true">QPushButton{
+      <string notr="true">QLineEdit{
 font-size:14px;
 border-radius:6px;
 background-color:rgb(110,110,110);
 padding-top:6px;
 padding-bottom:6px;
-}
-
-QPushButton:hover{
-background-color:rgb(130,130,130);
 }</string>
      </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_6">
      <property name="text">
-      <string>Cancel</string>
+      <string>First Name</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="firstNameEdit">
+     <property name="styleSheet">
+      <string notr="true">QLineEdit{
+font-size:14px;
+border-radius:6px;
+background-color:rgb(110,110,110);
+padding-top:6px;
+padding-bottom:6px;
+}</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLineEdit" name="secondNameEdit">
+     <property name="styleSheet">
+      <string notr="true">QLineEdit{
+font-size:14px;
+border-radius:6px;
+background-color:rgb(110,110,110);
+padding-top:6px;
+padding-bottom:6px;
+}</string>
      </property>
     </widget>
    </item>
