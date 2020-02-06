@@ -42,11 +42,12 @@ void MainWindow::BookSeats( int id )
     QSqlQuery query;
     unsigned int cols=0;
     unsigned int rows=0;
+    unsigned int idhall = 0;
     QVector<uint> container;
     if(db.open())
     {
         QString h = movieContainer.at(id)->GetCurrentHour();
-        if( !query.exec( "SELECT s.Rzedy, s.Kolumny FROM Terminarz t INNER JOIN Sala s ON t.IdSali=s.IdSali WHERE t.GodzinaSeansu='"+h+
+        if( !query.exec( "SELECT s.Rzedy, s.Kolumny, s.IdSali FROM Terminarz t INNER JOIN Sala s ON t.IdSali=s.IdSali WHERE t.GodzinaSeansu='"+h+
                         "' AND t.IdFilmu="+QString::number(id) ) )
         {
             InformDialog::ExecInformDialog("Error", query.lastError().text());
@@ -54,20 +55,32 @@ void MainWindow::BookSeats( int id )
         query.next();
         rows = query.value("Rzedy").toUInt();
         cols = query.value("Kolumny").toUInt();
+        idhall = query.value("IdSali").toUInt();
 
-        if( !query.exec( "SELECT s.Rzedy, s.Kolumny FROM Terminarz t INNER JOIN Sala s ON t.IdSali=s.IdSali WHERE t.GodzinaSeansu='"+h+
-                        "' AND t.IdFilmu="+QString::number(id) ) )
+        if( !query.exec( "SELECT NrMiejsca FROM Rezerwacje WHERE Godzina='"+h+"' AND IdFilmu ="+QString::number(id)) )
         {
             InformDialog::ExecInformDialog("Error", query.lastError().text());
         }
 
+        while(query.next())
+        {
+            container.push_back( query.value("NrMiejsca").toUInt() );
+        }
 
+        QVector<uint> cont = CinemaHall::execCinemaHall( rows,cols,container );
+        if(!cont.isEmpty())
+        {
+            if( !query.exec( "SELECT NrMiejsca FROM Rezerwacje WHERE NrMiejsca="+QString::number(cont.at(0))) )
+            {
+                InformDialog::ExecInformDialog("Error", query.lastError().text());
+            }
+            query.first();
+            if( !query.isNull(0) )
+            {
 
+            }
+        }
         db.close();
-    }
-    if( cols>0 && rows>0)
-    {
-        CinemaHall::execCinemaHall( rows,cols,container );
     }
 }
 

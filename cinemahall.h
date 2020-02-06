@@ -16,7 +16,10 @@ public:
     explicit CinemaHall(QDialog *parent = nullptr, uint row=0, uint col=0 );
     ~CinemaHall();
 
-    static void execCinemaHall( uint row, uint col, QVector<uint>&cont);
+    static QVector<uint> execCinemaHall( uint row, uint col, QVector<uint>&cont);
+
+private slots:
+    void OnSubmitButtonClick();
 
 private:
     Ui::CinemaHall *ui;

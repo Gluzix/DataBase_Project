@@ -18,6 +18,24 @@
 </string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
+   <item row="1" column="0">
+    <widget class="QFrame" name="frame_2">
+     <property name="styleSheet">
+      <string notr="true">background-color:rgb(80,80,80);</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <layout class="QGridLayout" name="mainGrid"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
    <item row="0" column="0">
     <widget class="QFrame" name="frame">
      <property name="sizePolicy">
@@ -55,22 +73,24 @@ color:rgb(192,192,192);</string>
      </layout>
     </widget>
    </item>
-   <item row="1" column="0">
-    <widget class="QFrame" name="frame_2">
+   <item row="2" column="0">
+    <widget class="QPushButton" name="submitButton">
      <property name="styleSheet">
-      <string notr="true">background-color:rgb(80,80,80);</string>
+      <string notr="true">QPushButton{
+font-size:14px;
+border-radius:6px;
+background-color:rgb(110,110,110);
+padding-top:6px;
+padding-bottom:6px;
+}
+
+QPushButton:hover{
+background-color:rgb(130,130,130);
+}</string>
      </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+     <property name="text">
+      <string>Submit</string>
      </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <layout class="QGridLayout" name="mainGrid"/>
-      </item>
-     </layout>
     </widget>
    </item>
   </layout>
