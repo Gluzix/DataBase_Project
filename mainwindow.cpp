@@ -38,7 +38,7 @@ MainWindow::~MainWindow()
 void MainWindow::BookSeats( int id )
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("C:/Users/Kamil/Desktop/projekt.db");
+    db.setDatabaseName("./../DataBaseProject/projekt.db");
     QSqlQuery query;
     unsigned int cols=0;
     unsigned int rows=0;
@@ -106,7 +106,7 @@ void MainWindow::setMovies()
     ui->widget->setLayout(new QGridLayout(this));
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("C:/Users/Kamil/Desktop/projekt.db");
+    db.setDatabaseName("./../DataBaseProject/projekt.db");
     QSqlQuery query;
 
     if( db.open() )

@@ -99,7 +99,7 @@ void RegisterWindow::ProcessRegister()
     if( ifNothingIsEmpty )
     {
         QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName("C:/Users/Kamil/Desktop/projekt.db");
+        db.setDatabaseName("./../DataBaseProject/projekt.db");
         if(db.open())
         {
             QSqlQuery query;

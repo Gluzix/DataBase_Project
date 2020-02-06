@@ -27,7 +27,7 @@ LoginWidget::~LoginWidget()
 void LoginWidget::OnLoginButtonClick()
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("C:/Users/Kamil/Desktop/projekt.db");
+    db.setDatabaseName("./../DataBaseProject/projekt.db");
     QSqlQuery query;
 
     if(db.open())

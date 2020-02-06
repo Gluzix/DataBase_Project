@@ -23,4 +23,3 @@ void UserWidget::OnLogoutButtonClick()
 {
     emit SendWidgetChangeSignal();
 }
-
