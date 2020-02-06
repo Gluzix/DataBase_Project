@@ -6,6 +6,7 @@ UserWidget::UserWidget(QWidget *parent) :
     ui(new Ui::UserWidget)
 {
     ui->setupUi(this);
+    connect(ui->logoutButton, SIGNAL(clicked()), this, SLOT(OnLogoutButtonClick()));
 }
 
 UserWidget::~UserWidget()
@@ -16,5 +17,10 @@ UserWidget::~UserWidget()
 void UserWidget::SetName(QString name)
 {
     ui->nameLabel->setText("Hello "+name+"!");
+}
+
+void UserWidget::OnLogoutButtonClick()
+{
+    emit SendWidgetChangeSignal();
 }
 

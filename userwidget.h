@@ -19,6 +19,9 @@ public:
 signals:
     void SendWidgetChangeSignal();
 
+private slots:
+    void OnLogoutButtonClick();
+
 private:
     Ui::UserWidget *ui;
 

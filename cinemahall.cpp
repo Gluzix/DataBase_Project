@@ -35,8 +35,17 @@ CinemaHall::~CinemaHall()
     delete ui;
 }
 
-void CinemaHall::execCinemaHall( uint row, uint col )
+void CinemaHall::execCinemaHall( uint row, uint col, QVector<uint>&cont )
 {
     CinemaHall cinemaHall(nullptr, row, col);
+    cinemaHall.SetAlreadyChecked(cont);
     cinemaHall.exec();
+}
+
+void CinemaHall::SetAlreadyChecked( QVector<uint> &cont )
+{
+    for(int i=0; i<cont.size(); i++)
+    {
+        m_SeatsContainer.at( cont.at(i) )->StateChange(true);
+    }
 }

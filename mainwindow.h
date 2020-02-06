@@ -5,6 +5,7 @@
 #include <QThread>
 #include "loginwidget.h"
 #include "userwidget.h"
+#include "movie.h"
 
 namespace Ui {
 class MainWindow;
@@ -19,7 +20,7 @@ public:
     ~MainWindow();
 
 public slots:
-    void BookSeats();
+    void BookSeats( int id );
     void ChangeToUserWidget(QString);
     void ChangeToLoginWidget();
 
@@ -31,7 +32,8 @@ private:
     bool bIfLogged;
 
     void setMovies();
-    void AddNewWidget(QString info, QString path);
+    void AddNewWidget(QString info, QString path, int id);
+    QVector<Movie*> movieContainer;
 };
 
 #endif // MAINWINDOW_H

@@ -14,6 +14,7 @@ class seat : public QWidget
 public:
     explicit seat(QWidget *parent = nullptr, unsigned int id = 0);
     ~seat();
+    void StateChange(bool state);
 
 private slots:
     void OnStateChanged(int state);

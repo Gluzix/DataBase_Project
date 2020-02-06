@@ -16,6 +16,11 @@ seat::~seat()
     delete ui;
 }
 
+void seat::StateChange(bool state)
+{
+    ui->checkBox->setChecked( state );
+}
+
 void seat::OnStateChanged(int state)
 {
     if( state == 2 )
