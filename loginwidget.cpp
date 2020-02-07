@@ -68,6 +68,13 @@ void LoginWidget::GetLoginAndId(QString &log, uint &id, QString &nm)
     nm = name;
 }
 
+void LoginWidget::Reset()
+{
+     login = QString();
+     userId = 0;
+     name = QString();
+}
+
 void LoginWidget::OnRegisterButtonClick()
 {
     RegisterWindow::ExecRegisterWindow();

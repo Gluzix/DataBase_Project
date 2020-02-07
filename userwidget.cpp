@@ -20,36 +20,39 @@ UserWidget::~UserWidget()
 void UserWidget::SetInfo(QString name, QString login, int id)
 {
     ui->nameLabel->setText("Hello "+name+"!");
-    if(login.isEmpty())
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("./../DataBaseProject/projekt.db");
+    if(db.open())
     {
-        ui->reservationInfo->setText("You have no reservations!");
-    }
-    else
-    {
-        QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName("./../DataBaseProject/projekt.db");
-        if(db.open())
+        QSqlQuery query;
+        if( !query.exec( "SELECT IdFilmu, IdSali, NrMiejsca, Godzina FROM Rezerwacje r INNER JOIN Uzytkownicy u ON r.IdUzytkownika = u.IdUzytkownika "
+                         "WHERE u.IdUzytkownika="+QString::number(id)+" AND u.Login='"+login+"'" ) )
         {
-            QSqlQuery query;
-            if( !query.exec( "SELECT IdFilmu, IdSali, NrMiejsca, Godzina FROM Rezerwacje r INNER JOIN Uzytkownicy u ON r.IdUzytkownika = u.IdUzytkownika "
-                             "WHERE u.IdUzytkownika="+QString::number(id)+" AND u.Login='"+login+"'" ) )
+            InformDialog::ExecInformDialog("Error", query.lastError().text() );
+        }
+        else
+        {
+            QString places;
+            int iter=0;
+            while(query.next())
             {
-                InformDialog::ExecInformDialog("Error", query.lastError().text() );
-            }
-            else
-            {
-                QString places;
-                while(query.next())
+                if(iter>0)
                 {
                     places += ","+query.value("NrMiejsca").toString();
                 }
-                query.first();
-                query.value("IdFilmu").toString();
-                ui->reservationInfo->setText( query.value("IdFilmu").toString()+ query.value("IdSali").toString()+
-                                              query.value("Godzina").toString()+ places );
+                else
+                {
+                    places += query.value("NrMiejsca").toString();
+                }
+                iter++;
             }
-            db.close();
+            query.first();
+            ui->reservationInfo->setText( "Id filmu: "+ query.value("IdFilmu").toString()+"\n"
+                                          "Id Sali: "+query.value("IdSali").toString()+"\n"
+                                          "Godzina: "+query.value("Godzina").toString()+"\n"
+                                          "Miejsca: "+ places );
         }
+        db.close();
     }
 }
 

@@ -15,6 +15,7 @@ public:
     explicit LoginWidget(QWidget *parent = nullptr);
     ~LoginWidget();
     void GetLoginAndId(QString&, uint&, QString&);
+    void Reset();
 
 signals:
     void SendWidgetChangeSignal();

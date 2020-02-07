@@ -17,6 +17,7 @@ public:
     void SetItemToCombo(QString h);
     int GetId();
     QString GetCurrentHour();
+    void SetState(bool);
 
 signals:
     void SendButtonSignal( int );

@@ -43,6 +43,12 @@ QString Movie::GetCurrentHour()
     return ui->hourBox->currentText();
 }
 
+void Movie::SetState( bool state )
+{
+    ui->hourBox->setEnabled(state);
+    ui->pushButton->setEnabled(state);
+}
+
 void Movie::on_pushButton_clicked()
 {
     emit SendButtonSignal( m_id );

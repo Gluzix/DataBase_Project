@@ -80,9 +80,11 @@ void MainWindow::BookSeats( int id )
             {
                 InformDialog::ExecInformDialog("Error", query.lastError().text());
             }
+
         }
         db.close();
     }
+    userWidget->SetInfo(name,login, userId);
 }
 
 void MainWindow::ChangeToUserWidget()
@@ -91,12 +93,16 @@ void MainWindow::ChangeToUserWidget()
     QString login = QString();
     QString name = QString();
     loginWidget->GetLoginAndId(login, userId, name);
-
     ui->userWidgetLayout->removeWidget(loginWidget);
     loginWidget->hide();
     ui->userWidgetLayout->addWidget(userWidget);
     userWidget->SetInfo(name,login, userId);
     userWidget->show();
+
+    for(int i=0; i<movieContainer.size(); i++)
+    {
+        movieContainer.at(i)->SetState( true );
+    }
 }
 
 void MainWindow::ChangeToLoginWidget()
@@ -104,7 +110,12 @@ void MainWindow::ChangeToLoginWidget()
     ui->userWidgetLayout->removeWidget(userWidget);
     userWidget->hide();
     ui->userWidgetLayout->addWidget(loginWidget);
+    loginWidget->Reset();
     loginWidget->show();
+    for(int i=0; i<movieContainer.size(); i++)
+    {
+        movieContainer.at(i)->SetState( false );
+    }
 }
 
 void MainWindow::setMovies()
