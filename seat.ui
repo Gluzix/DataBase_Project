@@ -50,12 +50,12 @@ background:none;
 }
 
 QCheckBox:checked {
-image: url(:/Resources/seatUnAvailable.png);
+image: url(:/Resources/seatTempUnAvailable.png);
 background:none;
 }
 
 QCheckBox::indicator:checked {
-image: url(:/Resources/seatUnAvailable.png);
+image: url(:/Resources/seatTempUnAvailable.png);
 background:none;
 }
 

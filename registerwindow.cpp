@@ -99,7 +99,7 @@ void RegisterWindow::ProcessRegister()
     if( ifNothingIsEmpty )
     {
         QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName("C:/Users/Kamil/Desktop/projekt.db");
+        db.setDatabaseName("./../DataBaseProject/projekt.db");
         if(db.open())
         {
             QSqlQuery query;
@@ -130,13 +130,12 @@ void RegisterWindow::ProcessRegister()
 
                     if( !query.exec("INSERT INTO Uzytkownicy VALUES("+QString::number(latestID)+",'"+ui->firstNameEdit->text()+"','"+
                          ui->secondNameEdit->text()+"','"+ui->loginEdit->text()+"','"+ui->pwdEdit->text()+"','"+ui->emailEdit->text()+
-                               "',"+QString::number(-1)+");") )
+                               "')") )
                     {
                         err = query.lastError();
                         InformDialog::ExecInformDialog("Error", err.text());
                         ifNoErrorOccured = false;
                     }
-
                 }
                 else
                 {
@@ -150,7 +149,6 @@ void RegisterWindow::ProcessRegister()
                 InformDialog::ExecInformDialog("Error", "login lub mail jest juz zajety!");
                 ifNoErrorOccured = false;
             }
-
             db.close();
         }
         else

@@ -11,17 +11,19 @@ class UserWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit UserWidget(QWidget *parent = nullptr);
+    explicit UserWidget(QWidget *parent = nullptr );
     ~UserWidget();
 
-    void SetName(QString name );
+    void SetInfo(QString name, QString login, int id );
 
 signals:
     void SendWidgetChangeSignal();
 
+private slots:
+    void OnLogoutButtonClick();
+
 private:
     Ui::UserWidget *ui;
-
 };
 
 #endif // USERWIDGET_H

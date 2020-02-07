@@ -62,44 +62,17 @@
            <x>0</x>
            <y>0</y>
            <width>378</width>
-           <height>264</height>
+           <height>217</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
           <item row="0" column="0">
            <layout class="QGridLayout" name="gridLayout_2">
-            <item row="2" column="0">
-             <widget class="QComboBox" name="dateBox">
-              <property name="cursor">
-               <cursorShape>PointingHandCursor</cursorShape>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QComboBox{
-border:none;
-background-color:rgb(100,100,100);
-border-radius:6px;
-font-size:12px;
-}
-
-QComboBox:hover{
-border:none;
-background-color:rgb(110,110,110);
-}
-
-QComboBox::down-arrow {
-image: url(:/Resources/arrow.png);
-width:12px;
-height:12px;
-}
-
-QComboBox::drop-down {
-border:none;
-}</string>
-              </property>
-             </widget>
-            </item>
             <item row="5" column="0">
              <widget class="QComboBox" name="hourBox">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
@@ -128,23 +101,36 @@ border:none;
               </property>
              </widget>
             </item>
-            <item row="4" column="0">
-             <widget class="Line" name="line">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+            <item row="2" column="0">
+             <widget class="QComboBox" name="dateBox">
+              <property name="enabled">
+               <bool>false</bool>
               </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_2">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
               <property name="styleSheet">
-               <string notr="true">font-size:18px;</string>
-              </property>
-              <property name="text">
-               <string>Data</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+               <string notr="true">QComboBox{
+border:none;
+background-color:rgb(100,100,100);
+border-radius:6px;
+font-size:12px;
+}
+
+QComboBox:hover{
+border:none;
+background-color:rgb(110,110,110);
+}
+
+QComboBox::down-arrow {
+image: url(:/Resources/arrow.png);
+width:12px;
+height:12px;
+}
+
+QComboBox::drop-down {
+border:none;
+}</string>
               </property>
              </widget>
             </item>
@@ -161,21 +147,47 @@ border:none;
               </property>
              </widget>
             </item>
-            <item row="0" column="1" rowspan="6">
-             <spacer name="horizontalSpacer_2">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_2">
+              <property name="styleSheet">
+               <string notr="true">font-size:18px;</string>
+              </property>
+              <property name="text">
+               <string>Data</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="Line" name="line">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
-              <property name="sizeType">
-               <enum>QSizePolicy::Fixed</enum>
+             </widget>
+            </item>
+            <item row="0" column="1" rowspan="7">
+             <widget class="QLabel" name="label_4">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
               </property>
-              <property name="sizeHint" stdset="0">
+              <property name="minimumSize">
                <size>
-                <width>80</width>
-                <height>20</height>
+                <width>50</width>
+                <height>50</height>
                </size>
               </property>
-             </spacer>
+              <property name="styleSheet">
+               <string notr="true">image: url(:/Resources/lock.png);</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
             </item>
             <item row="1" column="0">
              <widget class="Line" name="line_2">
@@ -192,6 +204,9 @@ border:none;
       </item>
       <item row="3" column="1">
        <widget class="QPushButton" name="pushButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="cursor">
          <cursorShape>PointingHandCursor</cursorShape>
         </property>

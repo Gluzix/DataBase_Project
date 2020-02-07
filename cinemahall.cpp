@@ -21,6 +21,7 @@ CinemaHall::CinemaHall(QDialog *parent, uint row, uint col) :
             iterator++;
         }
     }
+    connect(ui->submitButton, SIGNAL(clicked()), this, SLOT(OnSubmitButtonClick()));
 }
 
 CinemaHall::~CinemaHall()
@@ -35,8 +36,31 @@ CinemaHall::~CinemaHall()
     delete ui;
 }
 
-void CinemaHall::execCinemaHall( uint row, uint col )
+QVector<uint> CinemaHall::execCinemaHall( uint row, uint col, QVector<uint>&cont )
 {
     CinemaHall cinemaHall(nullptr, row, col);
+    cinemaHall.SetAlreadyChecked(cont);
     cinemaHall.exec();
+    QVector<uint> vect;
+    for( int i=0; i<cinemaHall.m_SeatsContainer.size(); i++ )
+    {
+        if( cinemaHall.m_SeatsContainer.at(i)->GetIfBooked() )
+        {
+            vect.push_back(static_cast<uint>(i));
+        }
+    }
+    return vect;
+}
+
+void CinemaHall::OnSubmitButtonClick()
+{
+    close();
+}
+
+void CinemaHall::SetAlreadyChecked( QVector<uint> &cont )
+{
+    for(int i=0; i<cont.size(); i++)
+    {
+        m_SeatsContainer.at( cont.at(i) )->StateChange(true);
+    }
 }
