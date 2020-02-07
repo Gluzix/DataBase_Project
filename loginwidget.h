@@ -14,9 +14,10 @@ class LoginWidget : public QWidget
 public:
     explicit LoginWidget(QWidget *parent = nullptr);
     ~LoginWidget();
+    void GetLoginAndId(QString&, uint&, QString&);
 
 signals:
-    void SendWidgetChangeSignal(QString);
+    void SendWidgetChangeSignal();
 
 private slots:
     void OnRegisterButtonClick();
@@ -25,6 +26,9 @@ private slots:
 
 private:
     Ui::LoginWidget *ui;
+    QString login;
+    uint    userId;
+    QString name;
 };
 
 #endif // LOGINWIDGET_H

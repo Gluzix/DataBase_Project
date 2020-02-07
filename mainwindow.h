@@ -21,7 +21,7 @@ public:
 
 public slots:
     void BookSeats( int id );
-    void ChangeToUserWidget(QString);
+    void ChangeToUserWidget();
     void ChangeToLoginWidget();
 
 private:

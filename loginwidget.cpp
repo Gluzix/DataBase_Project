@@ -32,7 +32,7 @@ void LoginWidget::OnLoginButtonClick()
 
     if(db.open())
     {
-        query.exec("SELECT Login, Imie FROM Uzytkownicy WHERE Login='"+ui->loginEdit->text()+"' AND Haslo='"+ui->pwdEdit->text()+"';");
+        query.exec("SELECT Login, Imie, IdUzytkownika FROM Uzytkownicy WHERE Login='"+ui->loginEdit->text()+"' AND Haslo='"+ui->pwdEdit->text()+"';");
         query.first();
         if( query.isNull(0) )
         {
@@ -40,8 +40,10 @@ void LoginWidget::OnLoginButtonClick()
         }
         else
         {
-            QString name = query.value("Imie").toString();
-            emit SendWidgetChangeSignal(name);
+            name = query.value("Imie").toString();
+            login = query.value("Login").toString();
+            userId = query.value("IdUzytkownika").toUInt();
+            emit SendWidgetChangeSignal();
         }
         db.close();
     }
@@ -57,6 +59,13 @@ void LoginWidget::OnCheckBoxStateChanged( int state )
     {
         ui->pwdEdit->setEchoMode(QLineEdit::Normal);
     }
+}
+
+void LoginWidget::GetLoginAndId(QString &log, uint &id, QString &nm)
+{
+    log = login;
+    id = userId;
+    nm = name;
 }
 
 void LoginWidget::OnRegisterButtonClick()

@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     userWidget = new UserWidget( this );
     userWidget->hide();
 
-    connect(loginWidget, SIGNAL(SendWidgetChangeSignal(QString)), this, SLOT(ChangeToUserWidget(QString)) );
+    connect(loginWidget, SIGNAL(SendWidgetChangeSignal()), this, SLOT(ChangeToUserWidget()) );
     connect(userWidget, SIGNAL(SendWidgetChangeSignal()), this, SLOT(ChangeToLoginWidget()) );
 
     ui->userWidgetLayout->addWidget(loginWidget);
@@ -43,6 +43,10 @@ void MainWindow::BookSeats( int id )
     unsigned int cols=0;
     unsigned int rows=0;
     unsigned int idhall = 0;
+    unsigned int userId = 0;
+    QString login = QString();
+    QString name = QString();
+    loginWidget->GetLoginAndId(login, userId, name);
     QVector<uint> container;
     if(db.open())
     {
@@ -57,7 +61,7 @@ void MainWindow::BookSeats( int id )
         cols = query.value("Kolumny").toUInt();
         idhall = query.value("IdSali").toUInt();
 
-        if( !query.exec( "SELECT NrMiejsca FROM Rezerwacje WHERE Godzina='"+h+"' AND IdFilmu ="+QString::number(id)) )
+        if( !query.exec( "SELECT NrMiejsca FROM Rezerwacje WHERE Godzina='"+h+"' AND IdSali="+QString::number(idhall)+" AND IdFilmu ="+QString::number(id)) )
         {
             InformDialog::ExecInformDialog("Error", query.lastError().text());
         }
@@ -68,28 +72,30 @@ void MainWindow::BookSeats( int id )
         }
 
         QVector<uint> cont = CinemaHall::execCinemaHall( rows,cols,container );
-        if(!cont.isEmpty())
+
+        for( int i=0; i<cont.size(); i++ )
         {
-            if( !query.exec( "SELECT NrMiejsca FROM Rezerwacje WHERE NrMiejsca="+QString::number(cont.at(0))) )
+            if( !query.exec( "INSERT INTO Rezerwacje ( 'Godzina', 'IdFilmu', 'IdSali', 'NrMiejsca', 'IdUzytkownika' )"
+                             " VALUES('"+h+"',"+QString::number(id)+","+QString::number(idhall)+","+QString::number(cont.at(i))+","+QString::number(userId)+")" ) )
             {
                 InformDialog::ExecInformDialog("Error", query.lastError().text());
-            }
-            query.first();
-            if( !query.isNull(0) )
-            {
-
             }
         }
         db.close();
     }
 }
 
-void MainWindow::ChangeToUserWidget( QString name )
+void MainWindow::ChangeToUserWidget()
 {
+    unsigned int userId = 0;
+    QString login = QString();
+    QString name = QString();
+    loginWidget->GetLoginAndId(login, userId, name);
+
     ui->userWidgetLayout->removeWidget(loginWidget);
     loginWidget->hide();
     ui->userWidgetLayout->addWidget(userWidget);
-    userWidget->SetName(name);
+    userWidget->SetInfo(name,login, userId);
     userWidget->show();
 }
 
