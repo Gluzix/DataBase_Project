@@ -2,7 +2,7 @@
 #include "ui_seat.h"
 #include <qdebug.h>
 
-seat::seat(QWidget *parent, unsigned int id) :
+seat::seat(QWidget *parent, int id) :
     QWidget(parent),
     ui(new Ui::seat), m_ID(id)
 {

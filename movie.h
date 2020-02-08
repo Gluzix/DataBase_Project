@@ -12,11 +12,12 @@ class Movie : public QWidget
     Q_OBJECT
 
 public:
-    explicit Movie(QWidget *parent = nullptr, QString desc=QString(), QString pathToImage=QString(), int id=-1, QVector<QString> dates={QString()}, QVector<QString> hours={QString()});
+    explicit Movie(QWidget *parent = nullptr, QString desc=QString(), QString pathToImage=QString(), int id=-1 );
     ~Movie();
     void SetItemToCombo(QString h);
     int GetId();
     QString GetCurrentHour();
+    QString GetCurrentDate();
     void SetState(bool);
 
 signals:

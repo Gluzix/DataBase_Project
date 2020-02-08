@@ -2,22 +2,22 @@
 #include "ui_cinemahall.h"
 #include <QThread>
 
-CinemaHall::CinemaHall(QDialog *parent, uint row, uint col) :
+CinemaHall::CinemaHall(QDialog *parent, int row, int col) :
     QDialog(parent),
-    ui(new Ui::CinemaHall)
+    ui(new Ui::CinemaHall), m_IfConfirmed( false )
 {
     ui->setupUi(this);
-    uint size = row*col;
-    for(uint i=0; i<size; i++)
+    int size = row*col;
+    for(int i=0; i<size; i++)
     {
-        m_SeatsContainer.push_back( new seat(this, static_cast<unsigned int>(i)) );
+        m_SeatsContainer.push_back( new seat(this, i) );
     }
     int iterator = 0;
-    for(uint i=0; i<row; i++)
+    for(int i=0; i<row; i++)
     {
-        for(uint j=0; j<col; j++)
+        for(int j=0; j<col; j++)
         {
-            ui->mainGrid->addWidget( m_SeatsContainer[iterator],static_cast<int>(i),static_cast<int>(j) );
+            ui->mainGrid->addWidget( m_SeatsContainer[iterator],i,j );
             iterator++;
         }
     }
@@ -36,28 +36,37 @@ CinemaHall::~CinemaHall()
     delete ui;
 }
 
-QVector<uint> CinemaHall::execCinemaHall( uint row, uint col, QVector<uint>&cont )
+QVector<int> CinemaHall::execCinemaHall( int row, int col, QVector<int>&cont )
 {
     CinemaHall cinemaHall(nullptr, row, col);
     cinemaHall.SetAlreadyChecked(cont);
     cinemaHall.exec();
-    QVector<uint> vect;
-    for( int i=0; i<cinemaHall.m_SeatsContainer.size(); i++ )
+    QVector<int> vect;
+    if( cinemaHall.GetIfConfirmed() )
     {
-        if( cinemaHall.m_SeatsContainer.at(i)->GetIfBooked() )
+        for( int i=0; i<cinemaHall.m_SeatsContainer.size(); i++ )
         {
-            vect.push_back(static_cast<uint>(i));
+            if( cinemaHall.m_SeatsContainer.at(i)->GetIfBooked() )
+            {
+                vect.push_back( i );
+            }
         }
     }
     return vect;
 }
 
+bool CinemaHall::GetIfConfirmed()
+{
+    return m_IfConfirmed;
+}
+
 void CinemaHall::OnSubmitButtonClick()
 {
+    m_IfConfirmed = true;
     close();
 }
 
-void CinemaHall::SetAlreadyChecked( QVector<uint> &cont )
+void CinemaHall::SetAlreadyChecked( QVector<int> &cont )
 {
     for(int i=0; i<cont.size(); i++)
     {

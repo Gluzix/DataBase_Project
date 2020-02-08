@@ -4,7 +4,7 @@
 #include <QtSql>
 #include <QSqlQuery>
 
-Movie::Movie( QWidget *parent, QString desc, QString pathToImage, int id, QVector<QString> dates, QVector<QString> hours ) :
+Movie::Movie( QWidget *parent, QString desc, QString pathToImage, int id ) :
     QWidget(parent),
     ui(new Ui::Movie), m_id(id)
 {
@@ -36,9 +36,15 @@ QString Movie::GetCurrentHour()
     return ui->hourBox->currentText();
 }
 
+QString Movie::GetCurrentDate()
+{
+    return ui->dateBox->currentText();
+}
+
 void Movie::SetState( bool state )
 {
     ui->hourBox->setEnabled(state);
+    ui->dateBox->setEnabled(state);
     ui->pushButton->setEnabled(state);
 }
 
@@ -49,6 +55,7 @@ void Movie::on_pushButton_clicked()
 
 void Movie::onDataComboBoxChanged(int index)
 {
+    ui->hourBox->clear();
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("./../DataBaseProject/projekt.db");
     QSqlQuery query;
@@ -59,7 +66,8 @@ void Movie::onDataComboBoxChanged(int index)
     {
         if( !query.exec( "SELECT DISTINCT GodzinaSeansu FROM Terminarz t "
                         "INNER JOIN DataTerminarz dt ON t.IdTerminarz = dt.IdTerminarz "
-                        "WHERE Data='"+date+"'" ))
+                        "WHERE Data='"+date+"' "
+                        "AND IdFilmu="+QString::number(m_id) ))
         {
             InformDialog::ExecInformDialog("Error", query.lastError().text());
         }

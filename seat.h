@@ -12,7 +12,7 @@ class seat : public QWidget
     Q_OBJECT
 
 public:
-    explicit seat(QWidget *parent = nullptr, unsigned int id = 0);
+    explicit seat(QWidget *parent = nullptr, int id = 0);
     ~seat();
     void StateChange(bool state);
     bool GetIfBooked();
@@ -22,7 +22,7 @@ private slots:
 
 private:
     Ui::seat *ui;
-    unsigned int m_ID;
+    int m_ID;
     bool     bIfBooked;
 };
 

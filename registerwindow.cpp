@@ -1,7 +1,6 @@
 #include "registerwindow.h"
 #include "ui_registerwindow.h"
 #include "informdialog.h"
-#include "database.h"
 #include <QtSql>
 #include <QSqlQuery>
 #include <QDebug>

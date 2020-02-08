@@ -39,7 +39,6 @@ SOURCES += \
 HEADERS += \
         bookwidget.h \
         cinemahall.h \
-        database.h \
         informdialog.h \
         loginwidget.h \
         mainwindow.h \
