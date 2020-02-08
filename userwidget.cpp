@@ -14,10 +14,17 @@ UserWidget::UserWidget(QWidget *parent) :
 
 UserWidget::~UserWidget()
 {
+    for(int i=0; i<bookWidgetContainer.size(); i++)
+    {
+        ui->booksGridLayout->removeWidget(bookWidgetContainer.at(i));
+        delete bookWidgetContainer.at(i);
+        bookWidgetContainer[i] = nullptr;
+    }
+    bookWidgetContainer.clear();
     delete ui;
 }
 
-void UserWidget::SetInfo(QString name, QString login, int id)
+void UserWidget::SetInfo( QString name, QString login, int id )
 {
     ui->nameLabel->setText("Hello "+name+"!");
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
@@ -45,6 +52,7 @@ void UserWidget::SetInfo(QString name, QString login, int id)
             {
                 bookWidgetContainer.push_back(new BookWidget(this));
                 bookWidgetContainer.last()->SetBookId(query.value("IdRezerwacji").toInt());
+                connect(bookWidgetContainer.last(), SIGNAL( RemoveCurrentWidget(int) ), this, SLOT( RemoveReservation(int) ) );
                 ui->booksGridLayout->addWidget( bookWidgetContainer.last() );
             }
         }
@@ -85,6 +93,45 @@ void UserWidget::SetInfo(QString name, QString login, int id)
         }
 
         db.close();
+    }
+}
+
+void UserWidget::RemoveReservation( int id )
+{
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("./../DataBaseProject/projekt.db");
+    QSqlQuery query;
+    bool ifToDelete = true;
+    if( db.open() )
+    {
+        if( !query.exec( "DELETE FROM RezerwacjeMiejsca WHERE IdRezerwacji="+QString::number(id) ) )
+        {
+            InformDialog::ExecInformDialog("Error", query.lastError().text() );
+            ifToDelete = false;
+        }
+        else
+        {
+            if( !query.exec( "DELETE FROM Rezerwacje WHERE IdRezerwacji="+QString::number(id) ) )
+            {
+                InformDialog::ExecInformDialog("Error", query.lastError().text() );
+                ifToDelete = false;
+            }
+        }
+        db.close();
+    }
+    if( ifToDelete )
+    {
+        for( int i=0; i<bookWidgetContainer.size(); i++)
+        {
+            if( bookWidgetContainer.at(i)->returnBookId() == id )
+            {
+                ui->booksGridLayout->removeWidget( bookWidgetContainer.at( i ) );
+                delete bookWidgetContainer[i];
+                bookWidgetContainer[i] = nullptr;
+                bookWidgetContainer.removeAt(i);
+                break;
+            }
+        }
     }
 }
 

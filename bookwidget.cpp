@@ -6,6 +6,7 @@ BookWidget::BookWidget(QWidget *parent) :
     ui(new Ui::BookWidget)
 {
     ui->setupUi(this);
+    connect(ui->removeButton, SIGNAL(clicked()), SLOT(OnRemoveButtonClick()));
 }
 
 BookWidget::~BookWidget()
@@ -26,4 +27,9 @@ void BookWidget::SetInfo(QString info)
 int BookWidget::returnBookId()
 {
     return m_BookId;
+}
+
+void BookWidget::OnRemoveButtonClick()
+{
+    emit RemoveCurrentWidget( m_BookId );
 }

@@ -18,6 +18,12 @@ public:
     void SetInfo( QString );
     int returnBookId();
 
+signals:
+    void RemoveCurrentWidget( int id );
+
+private slots:
+    void OnRemoveButtonClick();
+
 private:
     Ui::BookWidget *ui;
     int m_BookId;

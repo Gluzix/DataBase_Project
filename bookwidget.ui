@@ -22,12 +22,12 @@
     </widget>
    </item>
    <item row="1" column="0">
-    <widget class="QPushButton" name="changeButton">
+    <widget class="QPushButton" name="removeButton">
      <property name="enabled">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="text">
-      <string>Change reservation</string>
+      <string>Remove Reservation</string>
      </property>
     </widget>
    </item>
