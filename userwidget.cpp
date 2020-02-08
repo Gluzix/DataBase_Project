@@ -59,7 +59,7 @@ void UserWidget::SetInfo( QString name, QString login, int id )
 
         for( int i=0; i<bookWidgetContainer.size(); i++)
         {
-            if( !query.exec( "SELECT IdFilmu, IdSali, NrMiejsca, Godzina FROM ( Rezerwacje r INNER JOIN "
+            if( !query.exec( "SELECT IdFilmu, IdSali, NrMiejsca, Godzina, Data FROM ( Rezerwacje r INNER JOIN "
                              "Uzytkownicy u ON r.IdUzytkownika = u.IdUzytkownika ) "
                              "INNER JOIN RezerwacjeMiejsca rm ON r.IdRezerwacji = rm.IdRezerwacji "
                              "WHERE u.IdUzytkownika="+QString::number(id)+" "
@@ -85,13 +85,23 @@ void UserWidget::SetInfo( QString name, QString login, int id )
                     iter++;
                 }
                 query.first();
-                bookWidgetContainer.at(i)->SetInfo( "Id filmu: "+ query.value("IdFilmu").toString()+"\n"
-                                              "Id Sali: "+query.value("IdSali").toString()+"\n"
-                                              "Godzina: "+query.value("Godzina").toString()+"\n"
-                                              "Miejsca: "+ places );
+                QSqlQuery secQuery;
+                int idFilmu = query.value("IdFilmu").toInt();
+                if( !secQuery.exec("SELECT Nazwa FROM Filmy WHERE IdFilmu="+QString::number(idFilmu)) )
+                {
+                    InformDialog::ExecInformDialog("Error", query.lastError().text() );
+                }
+                else
+                {
+                    secQuery.first();
+                }
+                bookWidgetContainer.at(i)->SetInfo( "Tytuł: "    +secQuery.value("Nazwa").toString()  +"\n"
+                                                "Id Sali: "           +query.value("IdSali").toString()   +"\n"
+                                                "Godzina: "           +query.value("Godzina").toString()  +"\n"
+                                                "Data: "              +query.value("Data").toString()     +"\n"
+                                                "Miejsca: "           +places );
             }
         }
-
         db.close();
     }
 }

@@ -5,7 +5,6 @@
 #include <QFontDatabase>
 #include <QtSql>
 #include <QSqlQuery>
-#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -195,14 +194,18 @@ void MainWindow::setMovies()
                 InformDialog::ExecInformDialog("Error", query.lastError().text() );
                 break;
             }
-            while(query.next())
+            while( query.next() )
             {
                 movieContainer.at(i)->SetItemToCombo(query.value("Data").toString());
             }
         }
         db.close();
-    }
 
+        for(int i=0; i<movieContainer.size(); i++)
+        {
+            movieContainer[i]->SetFirstItem();
+        }
+    }
 }
 
 void MainWindow::AddNewWidget( QString path, QString info, int id)

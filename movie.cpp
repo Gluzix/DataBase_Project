@@ -43,9 +43,22 @@ QString Movie::GetCurrentDate()
 
 void Movie::SetState( bool state )
 {
+    if( state )
+    {
+        ui->lockLabel->setStyleSheet("image: none;");
+    }
+    else
+    {
+        ui->lockLabel->setStyleSheet("image: url(:/Resources/lock.png);");
+    }
     ui->hourBox->setEnabled(state);
     ui->dateBox->setEnabled(state);
     ui->pushButton->setEnabled(state);
+}
+
+void Movie::SetFirstItem()
+{
+    ui->dateBox->setCurrentIndex(1);
 }
 
 void Movie::on_pushButton_clicked()

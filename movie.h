@@ -19,6 +19,7 @@ public:
     QString GetCurrentHour();
     QString GetCurrentDate();
     void SetState(bool);
+    void SetFirstItem();
 
 signals:
     void SendButtonSignal( int );

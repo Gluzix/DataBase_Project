@@ -1,6 +1,5 @@
 #include "seat.h"
 #include "ui_seat.h"
-#include <qdebug.h>
 
 seat::seat(QWidget *parent, int id) :
     QWidget(parent),
@@ -33,13 +32,12 @@ bool seat::GetIfBooked()
 
 void seat::OnStateChanged(int state)
 {
-    if( state == 2 )
+    if(state == 2)
     {
-        qDebug()<<"Seat nr:"<<m_ID<<"has been booked";
         bIfBooked = true;
     }
-    else if( state == 0 ){
-        qDebug()<<"Seat nr:"<<m_ID<<"has been unbooked";
+    else if( state == 0)
+    {
         bIfBooked = false;
     }
 }
