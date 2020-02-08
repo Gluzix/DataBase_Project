@@ -13,10 +13,11 @@ class CinemaHall : public QDialog
     Q_OBJECT
 
 public:
-    explicit CinemaHall(QDialog *parent = nullptr, uint row=0, uint col=0 );
+    explicit CinemaHall(QDialog *parent = nullptr, int row=0, int col=0 );
     ~CinemaHall();
 
-    static QVector<uint> execCinemaHall( uint row, uint col, QVector<uint>&cont);
+    static QVector<int> execCinemaHall( int row, int col, QVector<int>&cont);
+    bool GetIfConfirmed();
 
 private slots:
     void OnSubmitButtonClick();
@@ -24,8 +25,9 @@ private slots:
 private:
     Ui::CinemaHall *ui;
     QVector<seat*> m_SeatsContainer;
+    bool m_IfConfirmed;
 
-    void SetAlreadyChecked( QVector<uint>&cont );
+    void SetAlreadyChecked( QVector<int>&cont );
 };
 
 #endif // CINEMAHALL_H

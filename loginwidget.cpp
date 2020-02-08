@@ -42,7 +42,7 @@ void LoginWidget::OnLoginButtonClick()
         {
             name = query.value("Imie").toString();
             login = query.value("Login").toString();
-            userId = query.value("IdUzytkownika").toUInt();
+            userId = query.value("IdUzytkownika").toInt();
             emit SendWidgetChangeSignal();
         }
         db.close();
@@ -61,7 +61,7 @@ void LoginWidget::OnCheckBoxStateChanged( int state )
     }
 }
 
-void LoginWidget::GetLoginAndId(QString &log, uint &id, QString &nm)
+void LoginWidget::GetLoginAndId(QString &log, int &id, QString &nm)
 {
     log = login;
     id = userId;

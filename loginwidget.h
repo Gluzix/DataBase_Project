@@ -14,7 +14,7 @@ class LoginWidget : public QWidget
 public:
     explicit LoginWidget(QWidget *parent = nullptr);
     ~LoginWidget();
-    void GetLoginAndId(QString&, uint&, QString&);
+    void GetLoginAndId(QString&, int&, QString&);
     void Reset();
 
 signals:
@@ -28,7 +28,7 @@ private slots:
 private:
     Ui::LoginWidget *ui;
     QString login;
-    uint    userId;
+    int    userId;
     QString name;
 };
 

@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        bookwidget.cpp \
         cinemahall.cpp \
         informdialog.cpp \
         loginwidget.cpp \
@@ -36,8 +37,8 @@ SOURCES += \
         userwidget.cpp
 
 HEADERS += \
+        bookwidget.h \
         cinemahall.h \
-        database.h \
         informdialog.h \
         loginwidget.h \
         mainwindow.h \
@@ -47,6 +48,7 @@ HEADERS += \
         userwidget.h
 
 FORMS += \
+        bookwidget.ui \
         cinemahall.ui \
         informdialog.ui \
         loginwidget.ui \

@@ -1,5 +1,6 @@
 #ifndef USERWIDGET_H
 #define USERWIDGET_H
+#include "bookwidget.h"
 #include <QWidget>
 
 namespace Ui {
@@ -16,6 +17,9 @@ public:
 
     void SetInfo(QString name, QString login, int id );
 
+public slots:
+    void RemoveReservation( int id );
+
 signals:
     void SendWidgetChangeSignal();
 
@@ -24,6 +28,8 @@ private slots:
 
 private:
     Ui::UserWidget *ui;
+    QVector<BookWidget*> bookWidgetContainer;
+
 };
 
 #endif // USERWIDGET_H
