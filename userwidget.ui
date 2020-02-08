@@ -20,19 +20,6 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
-    <widget class="QLabel" name="nameLabel">
-     <property name="styleSheet">
-      <string notr="true">font-size:24px;</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
    <item row="2" column="0">
     <widget class="QPushButton" name="logoutButton">
      <property name="styleSheet">
@@ -53,12 +40,21 @@ background-color:rgb(130,130,130);
      </property>
     </widget>
    </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="reservationInfo">
+   <item row="0" column="0">
+    <widget class="QLabel" name="nameLabel">
+     <property name="styleSheet">
+      <string notr="true">font-size:24px;</string>
+     </property>
      <property name="text">
       <string/>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
+   </item>
+   <item row="1" column="0">
+    <layout class="QGridLayout" name="booksGridLayout"/>
    </item>
   </layout>
  </widget>

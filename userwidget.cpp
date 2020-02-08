@@ -22,36 +22,68 @@ void UserWidget::SetInfo(QString name, QString login, int id)
     ui->nameLabel->setText("Hello "+name+"!");
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("./../DataBaseProject/projekt.db");
+    for(int i=0; i<bookWidgetContainer.size(); i++)
+    {
+        ui->booksGridLayout->removeWidget(bookWidgetContainer.at(i));
+        delete bookWidgetContainer.at(i);
+        bookWidgetContainer[i] = nullptr;
+    }
+    bookWidgetContainer.clear();
+
     if(db.open())
     {
         QSqlQuery query;
-        if( !query.exec( "SELECT IdFilmu, IdSali, NrMiejsca, Godzina FROM Rezerwacje r INNER JOIN Uzytkownicy u ON r.IdUzytkownika = u.IdUzytkownika "
-                         "WHERE u.IdUzytkownika="+QString::number(id)+" AND u.Login='"+login+"'" ) )
+
+        if( !query.exec( "SELECT IdRezerwacji FROM Rezerwacje r INNER JOIN Uzytkownicy u ON r.IdUzytkownika = u.IdUzytkownika"
+                         " WHERE u.IdUzytkownika="+QString::number(id)+" AND u.Login='"+login+"'" ))
         {
             InformDialog::ExecInformDialog("Error", query.lastError().text() );
         }
         else
         {
-            QString places;
-            int iter=0;
             while(query.next())
             {
-                if(iter>0)
-                {
-                    places += ","+query.value("NrMiejsca").toString();
-                }
-                else
-                {
-                    places += query.value("NrMiejsca").toString();
-                }
-                iter++;
+                bookWidgetContainer.push_back(new BookWidget(this));
+                bookWidgetContainer.last()->SetBookId(query.value("IdRezerwacji").toInt());
+                ui->booksGridLayout->addWidget( bookWidgetContainer.last() );
             }
-            query.first();
-            ui->reservationInfo->setText( "Id filmu: "+ query.value("IdFilmu").toString()+"\n"
-                                          "Id Sali: "+query.value("IdSali").toString()+"\n"
-                                          "Godzina: "+query.value("Godzina").toString()+"\n"
-                                          "Miejsca: "+ places );
         }
+
+        for( int i=0; i<bookWidgetContainer.size(); i++)
+        {
+            if( !query.exec( "SELECT IdFilmu, IdSali, NrMiejsca, Godzina FROM ( Rezerwacje r INNER JOIN "
+                             "Uzytkownicy u ON r.IdUzytkownika = u.IdUzytkownika ) "
+                             "INNER JOIN RezerwacjeMiejsca rm ON r.IdRezerwacji = rm.IdRezerwacji "
+                             "WHERE u.IdUzytkownika="+QString::number(id)+" "
+                             "AND u.Login='"+login+"' "
+                             "AND r.IdRezerwacji="+QString::number(bookWidgetContainer.at(i)->returnBookId()) ) )
+            {
+                InformDialog::ExecInformDialog("Error", query.lastError().text() );
+            }
+            else
+            {
+                QString places;
+                int iter=0;
+                while(query.next())
+                {
+                    if(iter>0)
+                    {
+                        places += ","+query.value("NrMiejsca").toString();
+                    }
+                    else
+                    {
+                        places += query.value("NrMiejsca").toString();
+                    }
+                    iter++;
+                }
+                query.first();
+                bookWidgetContainer.at(i)->SetInfo( "Id filmu: "+ query.value("IdFilmu").toString()+"\n"
+                                              "Id Sali: "+query.value("IdSali").toString()+"\n"
+                                              "Godzina: "+query.value("Godzina").toString()+"\n"
+                                              "Miejsca: "+ places );
+            }
+        }
+
         db.close();
     }
 }

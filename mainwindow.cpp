@@ -44,11 +44,12 @@ void MainWindow::BookSeats( int id )
     unsigned int rows=0;
     unsigned int idhall = 0;
     unsigned int userId = 0;
+    int bookId = -1;
     QString login = QString();
     QString name = QString();
     loginWidget->GetLoginAndId(login, userId, name);
     QVector<uint> container;
-    if(db.open())
+    if( db.open() )
     {
         QString h = movieContainer.at(id)->GetCurrentHour();
         if( !query.exec( "SELECT s.Rzedy, s.Kolumny, s.IdSali FROM Terminarz t INNER JOIN Sala s ON t.IdSali=s.IdSali WHERE t.GodzinaSeansu='"+h+
@@ -56,12 +57,14 @@ void MainWindow::BookSeats( int id )
         {
             InformDialog::ExecInformDialog("Error", query.lastError().text());
         }
+
         query.next();
         rows = query.value("Rzedy").toUInt();
         cols = query.value("Kolumny").toUInt();
         idhall = query.value("IdSali").toUInt();
 
-        if( !query.exec( "SELECT NrMiejsca FROM Rezerwacje WHERE Godzina='"+h+"' AND IdSali="+QString::number(idhall)+" AND IdFilmu ="+QString::number(id)) )
+        if( !query.exec( "SELECT NrMiejsca FROM RezerwacjeMiejsca rm INNER JOIN Rezerwacje r ON rm.IdRezerwacji = r.IdRezerwacji "
+                         "WHERE Godzina='"+h+"' AND IdSali="+QString::number(idhall)+" AND IdFilmu ="+QString::number(id)) )
         {
             InformDialog::ExecInformDialog("Error", query.lastError().text());
         }
@@ -73,14 +76,48 @@ void MainWindow::BookSeats( int id )
 
         QVector<uint> cont = CinemaHall::execCinemaHall( rows,cols,container );
 
-        for( int i=0; i<cont.size(); i++ )
+
+        if( !query.exec("SELECT IdRezerwacji FROM Rezerwacje WHERE "
+                       "Godzina='"+h+"' "
+                       "AND IdSali="+QString::number(idhall)+" "
+                       "AND IdFilmu ="+QString::number(id)+" "
+                       "AND IdUzytkownika ="+QString::number(userId)))
         {
-            if( !query.exec( "INSERT INTO Rezerwacje ( 'Godzina', 'IdFilmu', 'IdSali', 'NrMiejsca', 'IdUzytkownika' )"
-                             " VALUES('"+h+"',"+QString::number(id)+","+QString::number(idhall)+","+QString::number(cont.at(i))+","+QString::number(userId)+")" ) )
+            InformDialog::ExecInformDialog("Error", query.lastError().text());
+        }
+        else
+        {
+            query.first();
+            if( query.isNull(0) )
+            {
+                if( !query.exec( "INSERT INTO Rezerwacje ( 'Godzina', 'IdFilmu', 'IdSali', 'IdUzytkownika' )"
+                                 " VALUES('"+h+"',"+QString::number(id)+","+QString::number(idhall)+", "+QString::number(userId)+")" ) )
+                {
+                    InformDialog::ExecInformDialog("Error", query.lastError().text());
+                }
+            }
+            if( !query.exec("SELECT IdRezerwacji FROM Rezerwacje WHERE "
+                           "Godzina='"+h+"' "
+                           "AND IdSali="+QString::number(idhall)+" "
+                           "AND IdFilmu ="+QString::number(id)+" "
+                           "AND IdUzytkownika ="+QString::number(userId)))
             {
                 InformDialog::ExecInformDialog("Error", query.lastError().text());
             }
+            else
+            {
+                query.first();
+                bookId = query.value(0).toInt();
+            }
+        }
 
+        for( int i=0; i<cont.size(); i++ )
+        {
+            if( !query.exec( "INSERT INTO RezerwacjeMiejsca ( 'IdRezerwacji', 'NrMiejsca' )"
+                             " VALUES("+QString::number(bookId)+", "+QString::number(cont.at(i))+")"))
+            {
+                InformDialog::ExecInformDialog("Error", query.lastError().text());
+            }
         }
         db.close();
     }

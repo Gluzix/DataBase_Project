@@ -1,5 +1,6 @@
 #ifndef USERWIDGET_H
 #define USERWIDGET_H
+#include "bookwidget.h"
 #include <QWidget>
 
 namespace Ui {
@@ -24,6 +25,8 @@ private slots:
 
 private:
     Ui::UserWidget *ui;
+    QVector<BookWidget*> bookWidgetContainer;
+
 };
 
 #endif // USERWIDGET_H
