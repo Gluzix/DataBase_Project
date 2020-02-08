@@ -126,7 +126,7 @@ void MainWindow::BookSeats( int id )
 
 void MainWindow::ChangeToUserWidget()
 {
-    unsigned int userId = 0;
+    /*unsigned int userId = 0;
     QString login = QString();
     QString name = QString();
     loginWidget->GetLoginAndId(login, userId, name);
@@ -139,12 +139,12 @@ void MainWindow::ChangeToUserWidget()
     for(int i=0; i<movieContainer.size(); i++)
     {
         movieContainer.at(i)->SetState( true );
-    }
+    }*/
 }
 
 void MainWindow::ChangeToLoginWidget()
 {
-    ui->userWidgetLayout->removeWidget(userWidget);
+    /*ui->userWidgetLayout->removeWidget(userWidget);
     userWidget->hide();
     ui->userWidgetLayout->addWidget(loginWidget);
     loginWidget->Reset();
@@ -152,7 +152,7 @@ void MainWindow::ChangeToLoginWidget()
     for(int i=0; i<movieContainer.size(); i++)
     {
         movieContainer.at(i)->SetState( false );
-    }
+    }*/
 }
 
 void MainWindow::setMovies()
@@ -178,15 +178,16 @@ void MainWindow::setMovies()
 
         for(int i=0; i<movieContainer.size(); i++)
         {
-
-            if( !query.exec("SELECT GodzinaSeansu FROM Terminarz WHERE IdFilmu="+QString::number(i)) )
+            if( !query.exec("SELECT DISTINCT Data FROM DataTerminarz dt "
+                            "INNER JOIN Terminarz t ON dt.IdTerminarz=t.IdTerminarz "
+                            "WHERE IdFilmu="+QString::number(i)) )
             {
                 InformDialog::ExecInformDialog("Error", query.lastError().text() );
                 break;
             }
             while(query.next())
             {
-                movieContainer.at(i)->SetItemToCombo(query.value("GodzinaSeansu").toString());
+                movieContainer.at(i)->SetItemToCombo(query.value("Data").toString());
             }
         }
         db.close();

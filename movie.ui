@@ -71,7 +71,7 @@
             <item row="5" column="0">
              <widget class="QComboBox" name="hourBox">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
@@ -104,7 +104,7 @@ border:none;
             <item row="2" column="0">
              <widget class="QComboBox" name="dateBox">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
@@ -205,7 +205,7 @@ border:none;
       <item row="3" column="1">
        <widget class="QPushButton" name="pushButton">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="cursor">
          <cursorShape>PointingHandCursor</cursorShape>

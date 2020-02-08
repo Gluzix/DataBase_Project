@@ -24,6 +24,7 @@ signals:
 
 private slots:
     void on_pushButton_clicked();
+    void onDataComboBoxChanged( int );
 
 private:
     Ui::Movie *ui;
