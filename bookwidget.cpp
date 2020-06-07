@@ -14,17 +14,17 @@ BookWidget::~BookWidget()
     delete ui;
 }
 
-void BookWidget::SetBookId(int id)
+void BookWidget::SetID(int id)
 {
     m_BookId = id;
 }
 
-void BookWidget::SetInfo(QString info)
+void BookWidget::SetDesc(QString info)
 {
     ui->reservationInfo->setText(info);
 }
 
-int BookWidget::returnBookId()
+int BookWidget::GetID()
 {
     return m_BookId;
 }

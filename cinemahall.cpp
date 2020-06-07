@@ -41,7 +41,7 @@ QVector<int> CinemaHall::execCinemaHall( int row, int col, QVector<int>&cont )
     cinemaHall.SetAlreadyChecked(cont);
     cinemaHall.exec();
     QVector<int> vect;
-    if( cinemaHall.GetIfConfirmed() )
+    if( cinemaHall.GetConfirmation() )
     {
         for( int i=0; i<cinemaHall.m_SeatsContainer.size(); i++ )
         {
@@ -54,7 +54,7 @@ QVector<int> CinemaHall::execCinemaHall( int row, int col, QVector<int>&cont )
     return vect;
 }
 
-bool CinemaHall::GetIfConfirmed()
+bool CinemaHall::GetConfirmation()
 {
     return m_IfConfirmed;
 }

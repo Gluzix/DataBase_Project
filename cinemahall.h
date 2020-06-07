@@ -17,17 +17,17 @@ public:
     ~CinemaHall();
 
     static QVector<int> execCinemaHall( int row, int col, QVector<int>&cont);
-    bool GetIfConfirmed();
+    bool                GetConfirmation();
 
 private slots:
-    void OnSubmitButtonClick();
+    void                OnSubmitButtonClick();
 
 private:
-    Ui::CinemaHall *ui;
-    QVector<seat*> m_SeatsContainer;
-    bool m_IfConfirmed;
+    Ui::CinemaHall      *ui;
+    QVector<seat*>      m_SeatsContainer;
+    bool                m_IfConfirmed;
 
-    void SetAlreadyChecked( QVector<int>&cont );
+    void                SetAlreadyChecked( QVector<int>&cont );
 };
 
 #endif // CINEMAHALL_H

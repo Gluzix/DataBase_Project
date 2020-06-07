@@ -27,7 +27,7 @@ LoginWidget::~LoginWidget()
 void LoginWidget::OnLoginButtonClick()
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("./../DataBaseProject/projekt.db");
+    db.setDatabaseName("projekt.db");
     QSqlQuery query;
 
     if(db.open())
@@ -40,9 +40,9 @@ void LoginWidget::OnLoginButtonClick()
         }
         else
         {
-            name = query.value("Imie").toString();
-            login = query.value("Login").toString();
-            userId = query.value("IdUzytkownika").toInt();
+            m_Name = query.value("Imie").toString();
+            m_Login = query.value("Login").toString();
+            m_UserID = query.value("IdUzytkownika").toInt();
             emit SendWidgetChangeSignal();
         }
         db.close();
@@ -63,16 +63,16 @@ void LoginWidget::OnCheckBoxStateChanged( int state )
 
 void LoginWidget::GetLoginAndId(QString &log, int &id, QString &nm)
 {
-    log = login;
-    id = userId;
-    nm = name;
+    log = m_Login;
+    id = m_UserID;
+    nm = m_Name;
 }
 
 void LoginWidget::Reset()
 {
-     login = QString();
-     userId = 0;
-     name = QString();
+     m_Login = QString();
+     m_UserID = 0;
+     m_Name = QString();
 }
 
 void LoginWidget::OnRegisterButtonClick()

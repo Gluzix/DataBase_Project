@@ -14,19 +14,19 @@ class BookWidget : public QWidget
 public:
     explicit BookWidget(QWidget *parent = nullptr);
     ~BookWidget();
-    void SetBookId( int );
-    void SetInfo( QString );
-    int returnBookId();
+    void    SetID( int );
+    void    SetDesc( QString );
+    int     GetID();
 
 signals:
-    void RemoveCurrentWidget( int id );
+    void    RemoveCurrentWidget( int id );
 
 private slots:
-    void OnRemoveButtonClick();
+    void    OnRemoveButtonClick();
 
 private:
-    Ui::BookWidget *ui;
-    int m_BookId;
+    Ui::BookWidget      *ui;
+    int                 m_BookId;
 };
 
 #endif // BOOKWIDGET_H

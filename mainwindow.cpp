@@ -11,32 +11,47 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setMovies();
-    //QFontDatabase::addApplicationFont(":/Resources/fonts/Bangers/Bangers-Regular.ttf");
-    //QFont Bangers("Bangers");
-    //QApplication::setFont(Bangers);
+    SetMovies();
+    QFontDatabase::addApplicationFont(":/Resources/fonts/Open_Sans/OpenSans-Regular.ttf");
+    QFont openSans("Open Sans");
+    QApplication::setFont(openSans);
 
-    bIfLogged = false;
-    loginWidget = new LoginWidget( this );
-    userWidget = new UserWidget( this );
-    userWidget->hide();
-
-    connect(loginWidget, SIGNAL(SendWidgetChangeSignal()), this, SLOT(ChangeToUserWidget()) );
-    connect(userWidget, SIGNAL(SendWidgetChangeSignal()), this, SLOT(ChangeToLoginWidget()) );
-
-    ui->userWidgetLayout->addWidget(loginWidget);
+    m_bIfLogged = false;
+    m_pLoginWidget = new LoginWidget( this );
+    m_pUserWidget = new UserWidget( this );
+    m_pUserWidget->hide();
+    m_pOpenButton = new QPushButton( this );
+    m_pOpenButton->setStyleSheet("QPushButton{"
+                                 "font-size:14px;"
+                                 "border-radius:6px;"
+                                 "background-color:rgb(110,110,110);"
+                                 "padding-top:6px;"
+                                 "padding-bottom:6px;"
+                                 "}  "
+                                 "QPushButton:hover{"
+                                 "background-color:rgb(130,130,130);"
+                                 "}");
+    layout()->addWidget(m_pOpenButton);
+    m_pOpenButton->setGeometry(0,25,20,100);
+    m_pOpenButton->setText("->");
+    m_pOpenButton->hide();
+    connect(m_pLoginWidget, SIGNAL(SendWidgetChangeSignal()), this, SLOT(ChangeToUserWidget()) );
+    connect(m_pUserWidget, SIGNAL(SendWidgetChangeSignal()), this, SLOT(ChangeToLoginWidget()) );
+    connect( ui->hideLeftPanelButton, SIGNAL(clicked()), this, SLOT(OnHideButtonClick()) );
+    connect(m_pOpenButton, SIGNAL(clicked()), this, SLOT(OnShowButtonClick()));
+    ui->userWidgetLayout->addWidget(m_pLoginWidget);
 }
 
 MainWindow::~MainWindow()
 {
-    movieContainer.clear();
+    m_MovieContainer.clear();
     delete ui;
 }
 
 void MainWindow::BookSeats( int id )
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("./../DataBaseProject/projekt.db");
+    db.setDatabaseName("projekt.db");
     QSqlQuery query;
     int cols=0;
     int rows=0;
@@ -45,12 +60,12 @@ void MainWindow::BookSeats( int id )
     int bookId = -1;
     QString login = QString();
     QString name = QString();
-    loginWidget->GetLoginAndId(login, userId, name);
+    m_pLoginWidget->GetLoginAndId(login, userId, name);
     QVector<int> container;
     if( db.open() )
     {
-        QString d = movieContainer.at(id)->GetCurrentDate();
-        QString h = movieContainer.at(id)->GetCurrentHour();
+        QString d = m_MovieContainer.at(id)->GetCurrentDate();
+        QString h = m_MovieContainer.at(id)->GetCurrentHour();
         if( !query.exec( "SELECT s.Rzedy, s.Kolumny, s.IdSali FROM ( Terminarz t INNER JOIN Sala s ON t.IdSali=s.IdSali ) "
                          "INNER JOIN DataTerminarz dt ON t.IdTerminarz = dt.IdTerminarz "
                          "WHERE t.GodzinaSeansu='"+h+
@@ -127,7 +142,7 @@ void MainWindow::BookSeats( int id )
                     InformDialog::ExecInformDialog("Error", query.lastError().text());
                 }
             }
-            userWidget->SetInfo(name,login, userId);
+            m_pUserWidget->SetInfo(name,login, userId);
         }
         db.close();
     }
@@ -138,38 +153,50 @@ void MainWindow::ChangeToUserWidget()
     int userId = 0;
     QString login = QString();
     QString name = QString();
-    loginWidget->GetLoginAndId(login, userId, name);
-    ui->userWidgetLayout->removeWidget(loginWidget);
-    loginWidget->hide();
-    ui->userWidgetLayout->addWidget(userWidget);
-    userWidget->SetInfo(name,login, userId);
-    userWidget->show();
+    m_pLoginWidget->GetLoginAndId(login, userId, name);
+    ui->userWidgetLayout->removeWidget(m_pLoginWidget);
+    m_pLoginWidget->hide();
+    ui->userWidgetLayout->addWidget(m_pUserWidget);
+    m_pUserWidget->SetInfo(name,login, userId);
+    m_pUserWidget->show();
 
-    for(int i=0; i<movieContainer.size(); i++)
+    for(int i=0; i<m_MovieContainer.size(); i++)
     {
-        movieContainer.at(i)->SetState( true );
+        m_MovieContainer.at(i)->SetState( true );
     }
 }
 
 void MainWindow::ChangeToLoginWidget()
 {
-    ui->userWidgetLayout->removeWidget(userWidget);
-    userWidget->hide();
-    ui->userWidgetLayout->addWidget(loginWidget);
-    loginWidget->Reset();
-    loginWidget->show();
-    for(int i=0; i<movieContainer.size(); i++)
+    ui->userWidgetLayout->removeWidget(m_pUserWidget);
+    m_pUserWidget->hide();
+    ui->userWidgetLayout->addWidget(m_pLoginWidget);
+    m_pLoginWidget->Reset();
+    m_pLoginWidget->show();
+    for(int i=0; i<m_MovieContainer.size(); i++)
     {
-        movieContainer.at(i)->SetState( false );
+        m_MovieContainer.at(i)->SetState( false );
     }
 }
 
-void MainWindow::setMovies()
+void MainWindow::OnHideButtonClick()
+{
+    ui->userWidget->hide();
+    m_pOpenButton->show();
+}
+
+void MainWindow::OnShowButtonClick()
+{
+    m_pOpenButton->hide();
+    ui->userWidget->show();
+}
+
+void MainWindow::SetMovies()
 {
     ui->widget->setLayout(new QGridLayout(this));
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("./../DataBaseProject/projekt.db");
+    db.setDatabaseName("projekt.db");
     QSqlQuery query;
 
     if( db.open() )
@@ -185,7 +212,7 @@ void MainWindow::setMovies()
             iterator++;
         }
 
-        for(int i=0; i<movieContainer.size(); i++)
+        for(int i=0; i<m_MovieContainer.size(); i++)
         {
             if( !query.exec("SELECT DISTINCT Data FROM DataTerminarz dt "
                             "INNER JOIN Terminarz t ON dt.IdTerminarz=t.IdTerminarz "
@@ -196,14 +223,14 @@ void MainWindow::setMovies()
             }
             while( query.next() )
             {
-                movieContainer.at(i)->SetItemToCombo(query.value("Data").toString());
+                m_MovieContainer.at(i)->SetItemToCombo(query.value("Data").toString());
             }
         }
         db.close();
 
-        for(int i=0; i<movieContainer.size(); i++)
+        for(int i=0; i<m_MovieContainer.size(); i++)
         {
-            movieContainer[i]->SetFirstItem();
+            m_MovieContainer[i]->SetFirstItem();
         }
     }
 }
@@ -213,5 +240,5 @@ void MainWindow::AddNewWidget( QString path, QString info, int id)
     Movie *movie = new Movie( this, info, path, id );
     connect(movie, SIGNAL( SendButtonSignal(int) ), this, SLOT( BookSeats(int) ));
     ui->widget->layout()->addWidget( movie );
-    movieContainer.push_back(movie);
+    m_MovieContainer.push_back(movie);
 }

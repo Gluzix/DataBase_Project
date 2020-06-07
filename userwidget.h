@@ -28,7 +28,7 @@ private slots:
 
 private:
     Ui::UserWidget *ui;
-    QVector<BookWidget*> bookWidgetContainer;
+    QVector<BookWidget*> m_BookWidgetContainer;
 
 };
 

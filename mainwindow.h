@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QThread>
+#include <QPushButton>
 #include "loginwidget.h"
 #include "userwidget.h"
 #include "movie.h"
@@ -24,16 +25,22 @@ public slots:
     void ChangeToUserWidget();
     void ChangeToLoginWidget();
 
+
+private slots:
+    void OnHideButtonClick();
+    void OnShowButtonClick();
+
 private:
     Ui::MainWindow  *ui;
-    LoginWidget     *loginWidget;
-    UserWidget      *userWidget;
+    LoginWidget     *m_pLoginWidget;
+    UserWidget      *m_pUserWidget;
+    QPushButton     *m_pOpenButton;
 
-    bool bIfLogged;
+    bool m_bIfLogged;
 
-    void setMovies();
+    void SetMovies();
     void AddNewWidget(QString info, QString path, int id);
-    QVector<Movie*> movieContainer;
+    QVector<Movie*> m_MovieContainer;
 };
 
 #endif // MAINWINDOW_H

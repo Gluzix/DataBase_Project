@@ -8,7 +8,7 @@ seat::seat(QWidget *parent, int id) :
     ui->setupUi(this);
     this->setCursor(Qt::PointingHandCursor);
     connect(ui->checkBox,SIGNAL(stateChanged(int)), this, SLOT(OnStateChanged(int)));
-    bIfBooked = false;
+    m_bIfBooked = false;
 }
 
 seat::~seat()
@@ -27,17 +27,17 @@ void seat::StateChange(bool state)
 
 bool seat::GetIfBooked()
 {
-    return bIfBooked;
+    return m_bIfBooked;
 }
 
 void seat::OnStateChanged(int state)
 {
     if(state == 2)
     {
-        bIfBooked = true;
+        m_bIfBooked = true;
     }
     else if( state == 0)
     {
-        bIfBooked = false;
+        m_bIfBooked = false;
     }
 }

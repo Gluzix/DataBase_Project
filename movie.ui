@@ -11,10 +11,10 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Future Cinema Movie</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color:rgb(70,70,70);</string>
+   <string notr="true">background-color:rgb(150,150,150);</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_5">
    <item row="1" column="0">
@@ -38,6 +38,10 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="styleSheet">
+      <string notr="true">border:1px solid gray;
+border-radius:6px;</string>
+     </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
      </property>
@@ -53,6 +57,10 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="styleSheet">
+         <string notr="true">border:none;
+</string>
+        </property>
         <property name="widgetResizable">
          <bool>true</bool>
         </property>
@@ -61,8 +69,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>378</width>
-           <height>217</height>
+           <width>380</width>
+           <height>219</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
@@ -217,11 +225,14 @@ border-radius:6px;
 background-color:rgb(90,90,90);
 padding-top:6px;
 padding-bottom:6px;
+border:none;
 }
 
 QPushButton:hover{
 background-color:rgb(100,100,100);
-}</string>
+}
+
+</string>
         </property>
         <property name="text">
          <string>Book your movie!</string>
@@ -243,7 +254,8 @@ background-color:rgb(100,100,100);
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">font-size:13px;</string>
+         <string notr="true">font-size:13px;
+border:none;</string>
         </property>
         <property name="text">
          <string>Po 25 latach odsiadki Franz Maurer wychodzi z więzienia i wkracza w nową Polskę, w której nic nie jest takie, jak zapamiętał. Kto i co czeka na człowieka, który przez ostatnie ćwierć wieku… nie robił nic? Jak odnajdzie się w świecie, w którym dawne zasady i lojalność przestały obowiązywać? Tego dowiemy się, gdy los ponownie połączy Franza i „Nowego”. Ich spotkanie zmieni wszystko.</string>
@@ -256,7 +268,8 @@ background-color:rgb(100,100,100);
       <item row="0" column="1">
        <widget class="QLabel" name="label">
         <property name="styleSheet">
-         <string notr="true">font-size:18px;</string>
+         <string notr="true">font-size:18px;
+border:none;</string>
         </property>
         <property name="text">
          <string>Opis</string>
@@ -278,7 +291,8 @@ background-color:rgb(100,100,100);
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">image: url(:/Resources/1.jpg);</string>
+         <string notr="true">image: url(:/Resources/1.jpg);
+border:none;</string>
         </property>
         <property name="text">
          <string/>

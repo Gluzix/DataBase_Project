@@ -70,7 +70,7 @@ void Movie::onDataComboBoxChanged(int index)
 {
     ui->hourBox->clear();
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("./../DataBaseProject/projekt.db");
+    db.setDatabaseName("projekt.db");
     QSqlQuery query;
 
     QString date = ui->dateBox->currentText();

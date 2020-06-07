@@ -27,9 +27,9 @@ private slots:
 
 private:
     Ui::LoginWidget *ui;
-    QString login;
-    int    userId;
-    QString name;
+    QString         m_Login;
+    int             m_UserID;
+    QString         m_Name;
 };
 
 #endif // LOGINWIDGET_H

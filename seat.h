@@ -21,9 +21,9 @@ private slots:
     void OnStateChanged(int state);
 
 private:
-    Ui::seat *ui;
-    int m_ID;
-    bool     bIfBooked;
+    Ui::seat    *ui;
+    int         m_ID;
+    bool        m_bIfBooked;
 };
 
 #endif // SEAT_H

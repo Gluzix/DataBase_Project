@@ -14,13 +14,13 @@ UserWidget::UserWidget(QWidget *parent) :
 
 UserWidget::~UserWidget()
 {
-    for(int i=0; i<bookWidgetContainer.size(); i++)
+    for(int i=0; i<m_BookWidgetContainer.size(); i++)
     {
-        ui->booksGridLayout->removeWidget(bookWidgetContainer.at(i));
-        delete bookWidgetContainer.at(i);
-        bookWidgetContainer[i] = nullptr;
+        ui->booksGridLayout->removeWidget(m_BookWidgetContainer.at(i));
+        delete m_BookWidgetContainer.at(i);
+        m_BookWidgetContainer[i] = nullptr;
     }
-    bookWidgetContainer.clear();
+    m_BookWidgetContainer.clear();
     delete ui;
 }
 
@@ -28,14 +28,14 @@ void UserWidget::SetInfo( QString name, QString login, int id )
 {
     ui->nameLabel->setText("Hello "+name+"!");
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("./../DataBaseProject/projekt.db");
-    for(int i=0; i<bookWidgetContainer.size(); i++)
+    db.setDatabaseName("projekt.db");
+    for(int i=0; i<m_BookWidgetContainer.size(); i++)
     {
-        ui->booksGridLayout->removeWidget(bookWidgetContainer.at(i));
-        delete bookWidgetContainer.at(i);
-        bookWidgetContainer[i] = nullptr;
+        ui->booksGridLayout->removeWidget(m_BookWidgetContainer.at(i));
+        delete m_BookWidgetContainer.at(i);
+        m_BookWidgetContainer[i] = nullptr;
     }
-    bookWidgetContainer.clear();
+    m_BookWidgetContainer.clear();
 
     if(db.open())
     {
@@ -50,21 +50,21 @@ void UserWidget::SetInfo( QString name, QString login, int id )
         {
             while(query.next())
             {
-                bookWidgetContainer.push_back(new BookWidget(this));
-                bookWidgetContainer.last()->SetBookId(query.value("IdRezerwacji").toInt());
-                connect(bookWidgetContainer.last(), SIGNAL( RemoveCurrentWidget(int) ), this, SLOT( RemoveReservation(int) ) );
-                ui->booksGridLayout->addWidget( bookWidgetContainer.last() );
+                m_BookWidgetContainer.push_back(new BookWidget(this));
+                m_BookWidgetContainer.last()->SetID(query.value("IdRezerwacji").toInt());
+                connect(m_BookWidgetContainer.last(), SIGNAL( RemoveCurrentWidget(int) ), this, SLOT( RemoveReservation(int) ) );
+                ui->booksGridLayout->addWidget( m_BookWidgetContainer.last() );
             }
         }
 
-        for( int i=0; i<bookWidgetContainer.size(); i++)
+        for( int i=0; i<m_BookWidgetContainer.size(); i++)
         {
             if( !query.exec( "SELECT IdFilmu, IdSali, NrMiejsca, Godzina, Data FROM ( Rezerwacje r INNER JOIN "
                              "Uzytkownicy u ON r.IdUzytkownika = u.IdUzytkownika ) "
                              "INNER JOIN RezerwacjeMiejsca rm ON r.IdRezerwacji = rm.IdRezerwacji "
                              "WHERE u.IdUzytkownika="+QString::number(id)+" "
                              "AND u.Login='"+login+"' "
-                             "AND r.IdRezerwacji="+QString::number(bookWidgetContainer.at(i)->returnBookId()) ) )
+                             "AND r.IdRezerwacji="+QString::number(m_BookWidgetContainer.at(i)->GetID()) ) )
             {
                 InformDialog::ExecInformDialog("Error", query.lastError().text() );
             }
@@ -95,7 +95,7 @@ void UserWidget::SetInfo( QString name, QString login, int id )
                 {
                     secQuery.first();
                 }
-                bookWidgetContainer.at(i)->SetInfo( "Tytuł: "    +secQuery.value("Nazwa").toString()  +"\n"
+                m_BookWidgetContainer.at(i)->SetDesc( "Tytuł: "    +secQuery.value("Nazwa").toString()  +"\n"
                                                 "Id Sali: "           +query.value("IdSali").toString()   +"\n"
                                                 "Godzina: "           +query.value("Godzina").toString()  +"\n"
                                                 "Data: "              +query.value("Data").toString()     +"\n"
@@ -109,7 +109,7 @@ void UserWidget::SetInfo( QString name, QString login, int id )
 void UserWidget::RemoveReservation( int id )
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("./../DataBaseProject/projekt.db");
+    db.setDatabaseName("projekt.db");
     QSqlQuery query;
     bool ifToDelete = true;
     if( db.open() )
@@ -131,14 +131,14 @@ void UserWidget::RemoveReservation( int id )
     }
     if( ifToDelete )
     {
-        for( int i=0; i<bookWidgetContainer.size(); i++)
+        for( int i=0; i<m_BookWidgetContainer.size(); i++)
         {
-            if( bookWidgetContainer.at(i)->returnBookId() == id )
+            if( m_BookWidgetContainer.at(i)->GetID() == id )
             {
-                ui->booksGridLayout->removeWidget( bookWidgetContainer.at( i ) );
-                delete bookWidgetContainer[i];
-                bookWidgetContainer[i] = nullptr;
-                bookWidgetContainer.removeAt(i);
+                ui->booksGridLayout->removeWidget( m_BookWidgetContainer.at( i ) );
+                delete m_BookWidgetContainer[i];
+                m_BookWidgetContainer[i] = nullptr;
+                m_BookWidgetContainer.removeAt(i);
                 break;
             }
         }
