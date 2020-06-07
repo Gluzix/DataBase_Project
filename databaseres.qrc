@@ -16,5 +16,8 @@
         <file>Resources/4.jpg</file>
         <file>Resources/seatTempUnAvailable.png</file>
         <file>Resources/lock.png</file>
+        <file>Resources/5.jpg</file>
+        <file>Resources/6.jpg</file>
+        <file>Resources/7.jpg</file>
     </qresource>
 </RCC>
